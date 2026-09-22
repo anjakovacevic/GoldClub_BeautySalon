@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="sr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gold Club · Beauty salon, Banovo brdo</title>
+  <meta name="description" content="Gold Club, salon lepote na Banovom brdu u Beogradu. Spray tan, lash & brow lift i masaža. Zakazivanje: +381 62 596 994.">
+  <meta name="theme-color" content="#F5ECE2">
+  <meta property="og:title" content="Gold Club · Beauty salon">
+  <meta property="og:description" content="The place where hot girls get even hotter. Spray tan, lash & brow lift i masaža na Banovom brdu.">
+  <meta property="og:image" content="assets/img/spraytan-legs.jpg">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Preskoči na sadržaj</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" aria-label="Gold Club">Gold Club</a>
+
+      <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">
+        <span data-i18n="nav.menu">Meni</span>
+      </button>
+
+      <nav id="site-nav" class="site-nav">
+        <ul>
+          <li><a href="#usluge" data-i18n="nav.services">Usluge</a></li>
+          <li><a href="#cenovnik" data-i18n="nav.prices">Cenovnik</a></li>
+          <li><a href="#salon" data-i18n="nav.salon">Salon</a></li>
+          <li><a href="#kontakt" data-i18n="nav.contact">Kontakt</a></li>
+        </ul>
+        <div class="lang" role="group" aria-label="Jezik / Language">
+          <button type="button" data-lang="sr" aria-pressed="true">SR</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <button type="button" class="btn btn-small" data-open-booking data-i18n="book">Zakaži termin</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <h1 class="wordmark" aria-label="Gold Club">
+            <span class="wm-line">Gold</span>
+            <span class="wm-line">Club</span>
+          </h1>
+          <p class="tagline" data-i18n="hero.tagline">The place where hot girls get even hotter.</p>
+          <p class="lede" data-i18n="hero.lede">Spray tan, lash &amp; brow lift i masaža u salonu na Banovom brdu.</p>
+          <div class="hero-actions">
+            <button type="button" class="btn" data-open-booking data-i18n="book">Zakaži termin</button>
+            <a class="link" href="#cenovnik" data-i18n="hero.prices">Pogledaj cenovnik</a>
+          </div>
+        </div>
+        <figure class="hero-arch">
+          <div class="arch-outline" aria-hidden="true"></div>
+          <div class="arch">
+            <img src="assets/img/spraytan-legs.jpg" alt="Spray tan: preplanula noga i pištolj za raspršivanje" width="275" height="245">
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="services" id="usluge" aria-labelledby="services-title">
+      <div class="wrap">
+        <h2 id="services-title" class="section-title" data-i18n="services.title">Tretmani</h2>
+        <div class="service-list" data-render="services"></div>
+      </div>
+    </section>
+
+    <section class="prices" id="cenovnik" aria-labelledby="prices-title">
+      <div class="wrap">
+        <div class="menu-card">
+          <h2 id="prices-title" class="menu-title">
+            <span class="menu-brand">Gold Club</span>
+            <span data-i18n="prices.title">Cenovnik</span>
+          </h2>
+          <div class="menu-groups" data-render="prices"></div>
+          <p class="menu-note" data-i18n="prices.note"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="salon" id="salon" aria-labelledby="salon-title">
+      <div class="wrap salon-inner">
+        <figure class="salon-photo">
+          <img src="assets/img/salon-nailbar.jpg" data-i18n-alt="salon.alt" alt="" width="560" height="776" loading="lazy">
+        </figure>
+        <div class="salon-copy">
+          <h2 id="salon-title" class="section-title" data-i18n="salon.title">Salon na Banovom brdu</h2>
+          <p data-i18n="salon.body"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="kontakt" aria-labelledby="contact-title">
+      <div class="wrap contact-inner">
+        <div class="contact-copy">
+          <h2 id="contact-title" class="section-title" data-i18n="contact.title">Dođi kod nas</h2>
+          <dl class="contact-list" data-render="contact"></dl>
+          <div class="channels" data-render="channels"></div>
+        </div>
+        <div class="map">
+          <iframe data-render="map" title="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="hiring" id="saradnja" aria-labelledby="hiring-title" data-render="hiring" hidden>
+      <div class="wrap hiring-inner">
+        <h2 id="hiring-title" data-i18n="hiring.title">Tražimo saradnice</h2>
+        <p data-i18n="hiring.body"></p>
+        <ul class="roles" data-render="roles"></ul>
+        <a class="link" data-render="hiring-link" href="#" data-i18n="hiring.cta">Pošalji poruku</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <span class="brand">Gold Club</span>
+      <small>© <span data-year></span> Gold Club. <span data-i18n="footer.rights">Sva prava zadržana.</span></small>
+    </div>
+  </footer>
+
+  <dialog class="booking" id="booking" aria-labelledby="booking-title">
+    <div class="booking-inner">
+      <h2 id="booking-title" data-i18n="book.title">Zakaži termin</h2>
+      <p data-i18n="book.body"></p>
+      <div class="channels channels-stacked" data-render="channels"></div>
+      <form method="dialog">
+        <button class="close" data-i18n="book.close">Zatvori</button>
+      </form>
+    </div>
+  </dialog>
+
+  <script src="js/content.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
