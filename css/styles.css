@@ -133,13 +133,28 @@ figure { margin: 0; }
 }
 .lang button[aria-pressed="true"] { background: var(--sand); color: var(--mocha); }
 
+/* Hamburger: three lines that fold into an X while the menu is open. */
 .menu-toggle {
-  display: none; border: 1px solid var(--mocha); background: none; color: var(--mocha);
-  border-radius: 999px; padding: .5rem 1.1rem; font: 400 var(--step--1)/1 var(--sans); cursor: pointer;
+  display: none; place-items: center;
+  width: 2.75rem; height: 2.75rem; margin-right: -.6rem; padding: 0;
+  border: 0; background: none; color: var(--mocha); cursor: pointer;
 }
+.menu-icon, .menu-icon::before, .menu-icon::after {
+  display: block; width: 1.5rem; height: 1.5px; border-radius: 1px;
+  background: currentColor;
+  transition: transform .3s cubic-bezier(.2, .7, .2, 1), background-color .2s;
+}
+.menu-icon { position: relative; }
+.menu-icon::before, .menu-icon::after { content: ""; position: absolute; left: 0; }
+.menu-icon::before { top: -.45rem; }
+.menu-icon::after { top: .45rem; }
+.menu-toggle[aria-expanded="true"] .menu-icon { background-color: transparent; }
+.menu-toggle[aria-expanded="true"] .menu-icon::before { transform: translateY(.45rem) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .menu-icon::after { transform: translateY(-.45rem) rotate(-45deg); }
+.menu-toggle:hover { color: var(--gold-deep); }
 
 @media (max-width: 1000px) {
-  .menu-toggle { display: inline-block; }
+  .menu-toggle { display: grid; }
   .site-nav {
     position: absolute; inset: 100% 0 auto 0;
     flex-direction: column; align-items: flex-start; gap: 1.5rem;
