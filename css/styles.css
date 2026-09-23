@@ -9,8 +9,19 @@
   --blush-soft: #EFD9D0;
   --gold: #B38B4D;
   --gold-deep: #7C5C29;
+  --gold-light: #E8D09A;
   --mocha: #3B281D;
   --mocha-soft: #6B5243;
+
+  /* Metal: gold as polished foil, not a flat colour. The light band is the shine;
+     shift background-position to move it. */
+  --foil: linear-gradient(115deg, var(--gold-deep) 0%, var(--gold) 22%, var(--gold-light) 40%, var(--gold) 55%, var(--gold-deep) 75%, var(--gold) 90%, var(--gold-light) 100%);
+  /* Darker foil for text on light grounds, so the letters never wash out. */
+  --foil-ink: linear-gradient(115deg, var(--gold-deep) 0%, var(--gold) 30%, #D2B06E 45%, var(--gold) 60%, var(--gold-deep) 85%);
+  /* Brighter foil for fills behind mocha text (stays above 4.5:1). */
+  --foil-bright: linear-gradient(115deg, var(--gold) 0%, var(--gold-light) 40%, #CFAE6C 60%, var(--gold) 100%);
+  /* Hairline that catches the light in the middle and fades out at the ends. */
+  --foil-rule: linear-gradient(90deg, transparent, var(--gold) 18%, var(--gold-light) 50%, var(--gold) 82%, transparent);
 
   --serif: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
   --sans: "Jost", "Futura", "Century Gothic", system-ui, sans-serif;
@@ -54,6 +65,7 @@ p { margin: 0; }
 figure { margin: 0; }
 
 :focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 3px; }
+::selection { background: var(--gold-light); color: var(--mocha); }
 
 .wrap { width: min(100% - 2 * var(--gutter), 72rem); margin-inline: auto; }
 
@@ -260,8 +272,6 @@ figure { margin: 0; }
 .menu-card {
   background: var(--sateen);
   padding: clamp(2rem, 6vw, 4.5rem);
-  outline: 1px solid var(--gold);
-  outline-offset: -.75rem;
   max-width: 60rem; margin-inline: auto;
 }
 
@@ -293,7 +303,6 @@ figure { margin: 0; }
   display: flex; flex-direction: column; gap: .6rem;
   padding: clamp(2rem, 4vw, 2.75rem);
   background: var(--blush-soft);
-  outline: 1px solid color-mix(in srgb, var(--gold) 60%, transparent); outline-offset: -.6rem;
   text-decoration: none;
   transition: background-color .25s;
 }
@@ -368,8 +377,6 @@ figure { margin: 0; }
   display: flex; flex-direction: column;
   padding: 2.25rem 2rem 2rem;
   background: color-mix(in srgb, var(--sand) 45%, var(--sateen));
-  outline: 1px solid color-mix(in srgb, var(--gold) 60%, transparent);
-  outline-offset: -.6rem;
 }
 .stars { color: var(--gold); letter-spacing: .25em; font-size: var(--step--1); }
 .review blockquote { margin: 1.25rem 0 0; flex: 1; }
@@ -488,7 +495,6 @@ figure { margin: 0; }
   border-radius: 999px 999px 0 0;
   padding: 5.5rem 2rem 2rem;
   text-align: center;
-  outline: 1px solid var(--gold); outline-offset: -.6rem;
 }
 .booking h2 { font-size: var(--step-2); }
 .booking p { margin-top: .75rem; color: var(--mocha-soft); }
@@ -647,7 +653,6 @@ legend, .field label {
   align-items: center; aspect-ratio: 1.75 / 1; max-width: 100%;
   padding: clamp(1.25rem, 3.5vw, 2.25rem);
   background: var(--mocha); color: var(--sateen);
-  outline: 1px solid var(--gold); outline-offset: -.6rem;
   box-shadow: 0 1.5rem 3rem -1.5rem rgb(59 40 29 / .55);
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -693,3 +698,108 @@ legend, .field label {
 .faq details[open] summary::after { transform: rotate(45deg); }
 .faq details p { padding: 0 0 1.4rem; max-width: var(--measure); color: var(--mocha-soft); }
 @media (max-width: 760px) { .faq-inner { grid-template-columns: 1fr; } }
+
+/* ---------- Metal ----------
+   Gold treated as polished foil rather than a flat colour. Kept last so it
+   layers over the component rules above. */
+
+:root {
+  /* A soft band of light; sweep it across foil by moving background-position
+     from 100% (off the right edge) to 0 (off the left). */
+  --shine: linear-gradient(105deg, transparent 38%, rgb(255 244 214 / .85) 50%, transparent 62%);
+  /* Left-anchored rule for dividers under headings and prices. */
+  --foil-rule-start: linear-gradient(90deg, var(--gold), var(--gold-light) 35%, var(--gold) 65%, transparent);
+}
+
+/* Foil lettering: the gradient is clipped to the glyphs. */
+.brand,
+.stars,
+.menu-brand,
+.wm-line:first-child,
+.vc-brand,
+.vc-arch span,
+.hiring h2 {
+  background: var(--shine) 100% 0 / 250% 100% no-repeat, var(--foil-ink);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.stars, .brand, .wm-line:first-child { width: fit-content; }
+/* On mocha the deep end of the foil would sink, so dark grounds get the bright one. */
+.vc-brand, .vc-arch span, .hiring h2 { background-image: var(--shine), var(--foil-bright); }
+
+.brand { transition: background-position .9s cubic-bezier(.2, .7, .2, 1); }
+.brand:hover { background-position: 0 0, 0 0; }
+
+/* "Gold" in the wordmark is the metal itself; "Club" stays mocha. Extra block
+   padding keeps the tall Bodoni caps inside the painted box at line-height .86. */
+.wm-line:first-child { padding-block: .1em; margin-block: -.1em; }
+@media (prefers-reduced-motion: no-preference) {
+  .wm-line:first-child { animation: rise 1.1s cubic-bezier(.2, .7, .2, 1) both, sheen 7s ease-in-out 1.4s infinite; }
+}
+@keyframes sheen {
+  0%, 72% { background-position: 100% 0, 0 0; }
+  100% { background-position: 0 0, 0 0; }
+}
+
+/* Framed cards: a foil hairline drawn just inside the edge. The light slides
+   along it on hover. */
+.menu-card, .explore-card, .review, .voucher-card, .booking-inner { position: relative; }
+.menu-card::before, .explore-card::before, .review::before, .voucher-card::before, .booking-inner::before,
+.arch-outline {
+  content: ""; position: absolute; inset: var(--frame-inset, .6rem);
+  padding: 1px; border: 0; border-radius: inherit; pointer-events: none;
+  background: var(--foil) 0 0 / 300% 100%;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  transition: background-position 1.2s cubic-bezier(.2, .7, .2, 1);
+}
+.menu-card { --frame-inset: .75rem; }
+.arch-outline { inset: -1rem 1rem 1rem -1rem; border-radius: 999px 999px 0 0; background-size: 200% 100%; }
+.explore-card:hover::before, .review:hover::before, .voucher-card:hover::before,
+.hero-arch:hover .arch-outline { background-position: 100% 0; }
+
+/* Hairlines catch the light in the middle and fade at the ends. */
+.site-header, .services, .reviews, .planner, .footer-base { border-image: var(--foil-rule) 1; }
+@media (max-width: 1000px) { .site-nav { border-image: var(--foil-rule) 1; } }
+.service-price, .menu-group h3, .review footer { border-image: var(--foil-rule-start) 1; }
+
+/* Buttons turn to gold on hover, with the light passing over them. */
+.btn, .channel-primary { position: relative; isolation: isolate; overflow: hidden; }
+.btn::before, .channel-primary::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: var(--shine) 100% 0 / 250% 100% no-repeat, var(--foil-bright);
+  opacity: 0;
+  transition: opacity .3s, background-position .9s cubic-bezier(.2, .7, .2, 1);
+}
+.btn:hover, .channel-primary:hover { color: var(--mocha); background: var(--mocha); border-color: var(--gold); }
+.btn:hover::before, .channel-primary:hover::before { opacity: 1; background-position: 0 0, 0 0; }
+
+/* Small gold accents. */
+.lang button[aria-pressed="true"] { background: var(--foil-bright); }
+.carousel-dots button[aria-current="true"]::before,
+.timeline li.is-event::before { background: var(--foil-bright); border-color: var(--gold-deep); }
+
+.vc-arch {
+  border-color: transparent;
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--gold) 35%, var(--mocha)), var(--mocha)) padding-box,
+    var(--foil) border-box;
+}
+.roles li {
+  border-color: transparent;
+  background: linear-gradient(var(--mocha), var(--mocha)) padding-box, var(--foil-bright) border-box;
+}
+
+/* The voucher is a gift card: light glances across it on hover. */
+.voucher-card::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: var(--shine) 100% 0 / 250% 100% no-repeat;
+  opacity: .4; mix-blend-mode: screen;
+  transition: background-position 1.1s cubic-bezier(.2, .7, .2, 1);
+}
+.voucher-card:hover::after { background-position: 0 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .brand, .btn::before, .channel-primary::before, .voucher-card::after,
+  .menu-card::before, .explore-card::before, .review::before, .voucher-card::before, .arch-outline { transition: none; }
+}
