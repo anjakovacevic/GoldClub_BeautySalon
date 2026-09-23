@@ -12,7 +12,6 @@ window.GC = {
     phoneRaw: "+38162596994",
     email: "goldclubspraytan@gmail.com",
     instagram: "salongoldclub",
-    instagramSprayTan: "spraytangoldclub",
     // Online booking (Sredi me). Set to null to hide the "Zakaži online" button.
     bookingUrl: "https://www.sredime.rs/widget/gold-club",
     address: "Trgovačka 7a",
@@ -236,8 +235,22 @@ window.GC = {
 
   // Interface text for both languages.
   ui: {
-    "nav.planner": { sr: "Tan planer", en: "Tan planner" },
-    "planner.eyebrow": { sr: "Spray tan", en: "Spray tan" },
+    "nav.planner": { sr: "Spray tan vodič", en: "Spray tan guide" },
+    "planner.eyebrow": { sr: "Spray tan vodič", en: "Spray tan guide" },
+    "explore.guide.eyebrow": { sr: "Spray tan vodič", en: "Spray tan guide" },
+    "explore.guide.title": { sr: "Isplaniraj svoj ten", en: "Plan your tan" },
+    "explore.guide.text": {
+      sr: "Izaberi ten i nijansu, unesi datum i dobij plan: kada da zakažeš, kako da se pripremiš i kako da ten potraje.",
+      en: "Pick your tone and shade, add the date and get a plan: when to book, how to prepare and how to make it last.",
+    },
+    "explore.guide.cta": { sr: "Otvori vodič", en: "Open the guide" },
+    "explore.prices.eyebrow": { sr: "Cenovnik", en: "Prices" },
+    "explore.prices.title": { sr: "Cene i poklon vaučeri", en: "Prices and gift vouchers" },
+    "explore.prices.text": {
+      sr: "Sve cene na jednom mestu, i poklon vaučer za bilo koji tretman koji sastaviš za minut.",
+      en: "Every price in one place, plus a gift voucher for any treatment, ready in a minute.",
+    },
+    "explore.prices.cta": { sr: "Pogledaj cenovnik", en: "See prices" },
     "planner.title": { sr: "Isplaniraj svoj ten", en: "Plan your tan" },
     "planner.lede": {
       sr: "Izaberi ten, nijansu i datum. Reći ćemo ti kada da zakažeš i šta da radiš pre i posle.",
@@ -300,7 +313,6 @@ window.GC = {
     "nav.prices": { sr: "Cenovnik", en: "Prices" },
     "nav.salon": { sr: "Salon", en: "Salon" },
     "nav.contact": { sr: "Lokacija", en: "Location" },
-    "nav.reviews": { sr: "Utisci", en: "Reviews" },
     "nav.menu": { sr: "Meni", en: "Menu" },
     book: { sr: "Zakaži termin", en: "Book an appointment" },
     "hero.tagline": { sr: "The place where hot girls get even hotter.", en: "The place where hot girls get even hotter." },

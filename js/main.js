@@ -240,7 +240,7 @@
               points,
               el("p", { class: "service-price" }, [
                 el("span", { text: from }),
-                el("a", { class: "link", href: "#price-" + s.id, text: t("services.seePrices") }),
+                el("a", { class: "link", href: "cenovnik.html#price-" + s.id, text: t("services.seePrices") }),
               ]),
             ]),
           ])
@@ -432,7 +432,7 @@
     b.addEventListener("click", function () {
       setMenu(false);
       if (typeof dialog.showModal === "function") dialog.showModal();
-      else location.hash = "#lokacija";
+      else location.href = document.getElementById("lokacija") ? "#lokacija" : "index.html#lokacija";
     });
   });
   dialog.addEventListener("click", function (e) {
@@ -599,6 +599,7 @@
     split.addEventListener("input", setSplit);
     setSplit();
     bindCopy("plan-copy", "plan-status", function () { return planner.message; });
+    document.getElementById("planner-form").addEventListener("submit", function (e) { e.preventDefault(); });
   })();
 
   /* ---------- Gift voucher ---------- */
@@ -667,7 +668,6 @@
       updateVoucher();
     });
     document.getElementById("voucher-form").addEventListener("submit", function (e) { e.preventDefault(); });
-    document.getElementById("planner-form").addEventListener("submit", function (e) { e.preventDefault(); });
     bindCopy("voucher-copy", "voucher-status", function () { return voucher.message; });
   })();
 

@@ -7,12 +7,17 @@ no framework, no database, no build step.
 
 ```
 GoldClub_BeautySalon/
-├── index.html        page markup
-├── css/styles.css    all styles
+├── index.html        home: hero, treatments, salon, location, reviews
+├── spray-tan.html    Spray tan vodič: tan planner + FAQ
+├── cenovnik.html     price list + gift voucher
+├── css/styles.css    all styles (shared by every page)
 ├── js/content.js     all editable content (services, prices, reviews, contact, texts)
 ├── js/main.js        rendering, language toggle, menu, booking dialog, reviews carousel
 └── assets/           favicon and photos (assets/img/)
 ```
+
+The header, footer and booking dialog are written out in each of the three HTML files.
+If you change one of them (e.g. add a nav link), make the same change in all three pages.
 
 ## Setup
 
@@ -46,7 +51,7 @@ After editing a file, just refresh the browser (`Ctrl+F5` / `Cmd+Shift+R` if it 
 ## Compiling / building
 
 **Nothing needs to be compiled.** The files in this folder are the finished website: the browser
-runs `index.html`, `css/styles.css` and `js/*.js` directly. There is no bundler, transpiler or
+runs the `.html` pages, `css/styles.css` and `js/*.js` directly. There is no bundler, transpiler or
 `build` script, and no output folder.
 
 To "build" a release, take the project folder as it is (you can leave out `.git`, `README.md`
@@ -70,7 +75,7 @@ Everything editable is in **`js/content.js`**:
   and the carousel loops in both directions. Remove every review to hide the section.
 - `contact`: phone, email, Instagram, address, map, opening hours (`hours: null` shows "Po zakazivanju"),
   and `bookingUrl`, the Sredi me online booking page behind "Zakaži online" (`null` hides that button).
-- `tanPlanner`: skin tones, shades and occasions for the "Tan planer". `closedDays` lists the
+- `tanPlanner`: skin tones, shades and occasions for the spray tan guide (`spray-tan.html`). `closedDays` lists the
   days the salon is closed (currently Sunday, **to be confirmed**) so the planner never suggests them.
 - `voucher.show`: set to `false` to hide the gift voucher builder. Its treatments and prices come from `services`.
 - `faq`: questions and answers, in both languages.

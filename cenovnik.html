@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="sr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cenovnik · Gold Club</title>
+  <meta name="description" content="Cenovnik salona Gold Club: spray tan, lash & brow lift i masaža. Poklon vaučeri za sve tretmane.">
+  <meta name="theme-color" content="#F5ECE2">
+  <meta property="og:title" content="Cenovnik · Gold Club">
+  <meta property="og:description" content="Cenovnik salona Gold Club: spray tan, lash & brow lift i masaža. Poklon vaučeri za sve tretmane.">
+  <meta property="og:image" content="assets/img/spraytan-legs.jpg">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Preskoči na sadržaj</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="Gold Club">Gold Club</a>
+
+      <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">
+        <span data-i18n="nav.menu">Meni</span>
+      </button>
+
+      <nav id="site-nav" class="site-nav">
+        <ul>
+          <li><a href="index.html#usluge" data-i18n="nav.services">Usluge</a></li>
+          <li><a href="spray-tan.html" data-i18n="nav.planner">Spray tan vodič</a></li>
+          <li><a href="cenovnik.html" aria-current="page" data-i18n="nav.prices">Cenovnik</a></li>
+          <li><a href="index.html#lokacija" data-i18n="nav.contact">Lokacija</a></li>
+        </ul>
+        <div class="lang" role="group" aria-label="Jezik / Language">
+          <button type="button" data-lang="sr" aria-pressed="true">SR</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <button type="button" class="btn btn-small" data-open-booking data-i18n="book">Zakaži termin</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="page-prices">
+    <section class="prices" id="cenovnik" aria-labelledby="prices-title">
+      <div class="wrap">
+        <div class="menu-card">
+          <h1 id="prices-title" class="menu-title">
+            <span class="menu-brand">Gold Club</span>
+            <span data-i18n="prices.title">Cenovnik</span>
+          </h1>
+          <div class="menu-groups" data-render="prices"></div>
+          <p class="menu-note" data-i18n="prices.note"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="voucher" id="vaucer" aria-labelledby="voucher-title" data-render="voucher-section">
+      <div class="wrap voucher-inner">
+        <div class="voucher-copy">
+          <h2 id="voucher-title" class="section-title" data-i18n="voucher.title">Poklon vaučer</h2>
+          <p class="voucher-lede" data-i18n="voucher.lede"></p>
+          <form class="voucher-form" id="voucher-form" novalidate>
+            <div class="field-pair">
+              <div class="field">
+                <label for="voucher-to" data-i18n="voucher.to">Za koga</label>
+                <input type="text" id="voucher-to" maxlength="28" autocomplete="off">
+              </div>
+              <div class="field">
+                <label for="voucher-from" data-i18n="voucher.from">Od koga</label>
+                <input type="text" id="voucher-from" maxlength="28" autocomplete="off">
+              </div>
+            </div>
+            <div class="field">
+              <label for="voucher-item" data-i18n="voucher.item">Tretman</label>
+              <select id="voucher-item" data-render="voucher-items"></select>
+            </div>
+            <div class="field">
+              <label for="voucher-note" data-i18n="voucher.note">Poruka</label>
+              <input type="text" id="voucher-note" maxlength="60" autocomplete="off">
+            </div>
+          </form>
+        </div>
+
+        <div class="voucher-side">
+          <div class="voucher-card" id="voucher-card">
+            <div class="vc-arch" aria-hidden="true"><span>GC</span></div>
+            <div class="vc-body">
+              <p class="vc-brand">Gold Club</p>
+              <p class="vc-kind" data-i18n="voucher.card">Poklon vaučer</p>
+              <p class="vc-item" id="vc-item"></p>
+              <p class="vc-price" id="vc-price"></p>
+              <p class="vc-names" id="vc-names"></p>
+              <p class="vc-note" id="vc-note"></p>
+            </div>
+          </div>
+          <div class="plan-actions">
+            <a class="btn" id="voucher-whatsapp" href="#" target="_blank" rel="noopener" data-i18n="voucher.order">Naruči vaučer</a>
+            <button type="button" class="link link-button" id="voucher-copy" data-i18n="planner.copy">Kopiraj poruku</button>
+          </div>
+          <p class="plan-status" id="voucher-status" role="status"></p>
+          <p class="plan-note" data-i18n="voucher.fine"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <span class="brand">Gold Club</span>
+        <p class="footer-tag">The place where hot girls get even hotter.</p>
+      </div>
+      <div>
+        <p class="footer-label" data-i18n="footer.visit">Adresa</p>
+        <p>Trgovačka 7a, Banovo brdo<br><a href="tel:+38162596994">+381 62 596 994</a></p>
+      </div>
+      <div>
+        <p class="footer-label" data-i18n="footer.follow">Prati nas</p>
+        <p><a href="https://www.instagram.com/salongoldclub" target="_blank" rel="noopener">@salongoldclub</a></p>
+      </div>
+    </div>
+    <div class="wrap footer-base">
+      <small>© <span data-year></span> Gold Club. <span data-i18n="footer.rights">Sva prava zadržana.</span></small>
+    </div>
+  </footer>
+
+  <dialog class="booking" id="booking" aria-labelledby="booking-title">
+    <div class="booking-inner">
+      <h2 id="booking-title" data-i18n="book.title">Zakaži termin</h2>
+      <p data-i18n="book.body"></p>
+      <div class="channels channels-stacked" data-render="channels"></div>
+      <form method="dialog">
+        <button class="close" data-i18n="book.close">Zatvori</button>
+      </form>
+    </div>
+  </dialog>
+
+  <script src="js/content.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

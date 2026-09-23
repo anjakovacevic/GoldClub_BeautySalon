@@ -107,6 +107,11 @@ figure { margin: 0; }
 .site-nav ul { display: flex; gap: 1.75rem; list-style: none; margin: 0; padding: 0; }
 .site-nav ul a { text-decoration: none; font-size: var(--step--1); letter-spacing: .04em; padding: .25rem 0; }
 .site-nav ul a:hover { color: var(--gold-deep); }
+.site-nav ul a[aria-current="page"] {
+  color: var(--gold-deep);
+  text-decoration: underline; text-decoration-color: var(--gold);
+  text-decoration-thickness: 1px; text-underline-offset: .45em;
+}
 
 .lang { display: flex; border: 1px solid color-mix(in srgb, var(--gold) 60%, transparent); border-radius: 999px; padding: 2px; }
 .lang button {
@@ -279,6 +284,34 @@ figure { margin: 0; }
 .item-price { flex: none; font-variant-numeric: tabular-nums lining-nums; white-space: nowrap; font-weight: 400; }
 
 .menu-note { margin-top: 3rem; font-size: var(--step--1); color: var(--mocha-soft); max-width: var(--measure); }
+
+/* ---------- Explore: links from the home page to the guide and price pages ---------- */
+
+.explore { padding-block: 0 var(--section); }
+.explore-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: clamp(1rem, 2.5vw, 2rem); }
+.explore-card {
+  display: flex; flex-direction: column; gap: .6rem;
+  padding: clamp(2rem, 4vw, 2.75rem);
+  background: var(--blush-soft);
+  outline: 1px solid color-mix(in srgb, var(--gold) 60%, transparent); outline-offset: -.6rem;
+  text-decoration: none;
+  transition: background-color .25s;
+}
+.explore-card:nth-child(2) { background: color-mix(in srgb, var(--sand) 70%, var(--sateen)); }
+.explore-card:hover { background: var(--blush); }
+.explore-card .eyebrow { margin-bottom: 0; }
+.explore-title { font-family: var(--serif); font-size: var(--step-2); line-height: 1.15; font-variation-settings: "opsz" 24; }
+.explore-text { max-width: var(--measure); color: var(--mocha-soft); }
+.explore-more {
+  margin-top: auto; padding-top: 1rem;
+  color: var(--gold-deep); font-size: var(--step--1); letter-spacing: .04em;
+}
+.explore-more::after { content: "→"; display: inline-block; margin-left: .4em; transition: transform .25s; }
+
+/* Subpages start right under the header, so their first section needs less top space. */
+.page-guide > section:first-child,
+.page-prices > section:first-child { padding-top: clamp(2.5rem, 6vw, 4.5rem); border-top: 0; }
+.explore-card:hover .explore-more::after { transform: translateX(.3rem); }
 
 /* ---------- Salon ---------- */
 

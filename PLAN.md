@@ -2,14 +2,15 @@
 
 ## What we know (from the Instagram material)
 - Salon Gold Club, Trgovačka 7a, Banovo brdo, Beograd
-- +381 62 596 994 · @salongoldclub · @spraytangoldclub · goldclubspraytan@gmail.com
+- +381 62 596 994 · @salongoldclub · goldclubspraytan@gmail.com
 - Tagline in their own material: "The place where hot girls get even hotter"
 - Current services: Spray tan, Lash & Brow lift, Massage (prices in RSD from the "Cenovnik" post)
 - Visual language: thin high-contrast serif, arched / circular frames (nail-bar arch shelf,
   circle crops in posts), mocha brown, sand, blush.
 
 ## Stack
-Plain static site: `index.html` + `css/` + `js/`. No build step, no database, no framework.
+Plain static site: three pages (`index.html`, `spray-tan.html`, `cenovnik.html`) sharing
+`css/` + `js/`. No build step, no database, no framework.
 Runs locally by opening `index.html` or `npx serve`, and deploys as-is to Netlify /
 Cloudflare Pages / any host once the domain is bought.
 
@@ -38,7 +39,9 @@ Type: **Bodoni Moda** (display, fashion-editorial, has č ć š ž đ) + **Jost*
 
 ## Layout
 ```
-[ Gold Club          Usluge  Cenovnik  Salon  Lokacija  SR/EN  (Zakaži) ]
+[ Gold Club   Usluge  Spray tan vodič  Cenovnik  Lokacija   SR/EN  (Zakaži) ]
+
+index.html (home: the essentials)
 
   GOLD                      ╭────────╮
   CLUB  (huge Bodoni)       │ arch   │
@@ -48,12 +51,18 @@ Type: **Bodoni Moda** (display, fashion-editorial, has č ć š ž đ) + **Jost*
 ------------------------------------------------------------------
   Service rows, alternating arch photo left/right, benefits list
 ------------------------------------------------------------------
-  Cenovnik — a printed-menu card on blush, dotted leaders to prices
+  Two link cards → Spray tan vodič, Cenovnik & vaučeri
 ------------------------------------------------------------------
   Salon — nail-bar photo + Banovo brdo copy
 ------------------------------------------------------------------
-  Lokacija — address, online booking (Sredi me), phone, Viber/WhatsApp/IG, embedded map
+  Lokacija — address, online booking (Sredi me), phone, Viber/WhatsApp/IG, map on click
+------------------------------------------------------------------
+  Utisci — reviews carousel (not in the nav)
+
+spray-tan.html   Tan planner (tone, shade, date → plan) + FAQ
+cenovnik.html    Cenovnik (printed-menu card on blush, dotted leaders) + gift voucher builder
 ```
+Header, footer and booking dialog are repeated in each HTML file; change them in all three.
 Left-aligned text; the arch is the one bold, repeated motif (it's their own shelf shape).
 
 ## Principles

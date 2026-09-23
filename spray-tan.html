@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="sr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spray tan vodič · Gold Club</title>
+  <meta name="description" content="Isplaniraj spray tan: izaberi ten i nijansu, unesi datum događaja i dobij plan pripreme i nege. Gold Club, Banovo brdo.">
+  <meta name="theme-color" content="#F5ECE2">
+  <meta property="og:title" content="Spray tan vodič · Gold Club">
+  <meta property="og:description" content="Isplaniraj spray tan: izaberi ten i nijansu, unesi datum događaja i dobij plan pripreme i nege. Gold Club, Banovo brdo.">
+  <meta property="og:image" content="assets/img/spraytan-legs.jpg">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Preskoči na sadržaj</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="Gold Club">Gold Club</a>
+
+      <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">
+        <span data-i18n="nav.menu">Meni</span>
+      </button>
+
+      <nav id="site-nav" class="site-nav">
+        <ul>
+          <li><a href="index.html#usluge" data-i18n="nav.services">Usluge</a></li>
+          <li><a href="spray-tan.html" aria-current="page" data-i18n="nav.planner">Spray tan vodič</a></li>
+          <li><a href="cenovnik.html" data-i18n="nav.prices">Cenovnik</a></li>
+          <li><a href="index.html#lokacija" data-i18n="nav.contact">Lokacija</a></li>
+        </ul>
+        <div class="lang" role="group" aria-label="Jezik / Language">
+          <button type="button" data-lang="sr" aria-pressed="true">SR</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <button type="button" class="btn btn-small" data-open-booking data-i18n="book">Zakaži termin</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="page-guide">
+    <section class="planner" id="planer" aria-labelledby="planner-title">
+      <div class="wrap">
+        <div class="planner-head">
+          <p class="eyebrow" data-i18n="planner.eyebrow">Spray tan</p>
+          <h1 id="planner-title" class="section-title" data-i18n="planner.title">Isplaniraj svoj ten</h1>
+          <p class="planner-lede" data-i18n="planner.lede"></p>
+        </div>
+
+        <div class="planner-grid">
+          <form class="planner-form" id="planner-form" novalidate>
+            <fieldset>
+              <legend data-i18n="planner.tone">Tvoj ten</legend>
+              <div class="tones" data-render="tones"></div>
+            </fieldset>
+            <fieldset>
+              <legend data-i18n="planner.level">Željena nijansa</legend>
+              <div class="levels" data-render="levels"></div>
+            </fieldset>
+            <div class="field-pair">
+              <div class="field">
+                <label for="planner-occasion" data-i18n="planner.occasion">Povod</label>
+                <select id="planner-occasion" data-render="occasions"></select>
+              </div>
+              <div class="field">
+                <label for="planner-date" data-i18n="planner.date">Datum događaja</label>
+                <input type="date" id="planner-date">
+              </div>
+            </div>
+          </form>
+
+          <figure class="planner-preview">
+            <div class="skin arch" id="planner-skin">
+              <div class="skin-layer skin-before"></div>
+              <div class="skin-layer skin-after"></div>
+              <span class="skin-divider" aria-hidden="true"></span>
+              <span class="skin-label skin-label-before" data-i18n="planner.before">Sada</span>
+              <span class="skin-label skin-label-after" data-i18n="planner.after">Posle</span>
+              <input type="range" id="planner-split" min="0" max="100" value="50" data-i18n-label="planner.after" aria-label="Posle">
+            </div>
+            <figcaption data-i18n="planner.approx"></figcaption>
+          </figure>
+
+          <div class="planner-plan" aria-live="polite">
+            <h3 data-i18n="planner.plan">Tvoj plan</h3>
+            <p class="plan-book" id="plan-book"></p>
+            <ol class="timeline" id="plan-steps"></ol>
+            <p class="plan-hint" id="plan-hint" hidden></p>
+            <div class="plan-actions">
+              <a class="btn" id="plan-whatsapp" href="#" target="_blank" rel="noopener" data-i18n="planner.whatsapp">Pošalji na WhatsApp</a>
+              <button type="button" class="link link-button" id="plan-copy" data-i18n="planner.copy">Kopiraj poruku</button>
+            </div>
+            <p class="plan-status" id="plan-status" role="status"></p>
+            <p class="plan-note" data-i18n="planner.note"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq" id="pitanja" aria-labelledby="faq-title">
+      <div class="wrap faq-inner">
+        <h2 id="faq-title" class="section-title" data-i18n="faq.title">Česta pitanja</h2>
+        <div class="faq-list" data-render="faq"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <span class="brand">Gold Club</span>
+        <p class="footer-tag">The place where hot girls get even hotter.</p>
+      </div>
+      <div>
+        <p class="footer-label" data-i18n="footer.visit">Adresa</p>
+        <p>Trgovačka 7a, Banovo brdo<br><a href="tel:+38162596994">+381 62 596 994</a></p>
+      </div>
+      <div>
+        <p class="footer-label" data-i18n="footer.follow">Prati nas</p>
+        <p><a href="https://www.instagram.com/salongoldclub" target="_blank" rel="noopener">@salongoldclub</a></p>
+      </div>
+    </div>
+    <div class="wrap footer-base">
+      <small>© <span data-year></span> Gold Club. <span data-i18n="footer.rights">Sva prava zadržana.</span></small>
+    </div>
+  </footer>
+
+  <dialog class="booking" id="booking" aria-labelledby="booking-title">
+    <div class="booking-inner">
+      <h2 id="booking-title" data-i18n="book.title">Zakaži termin</h2>
+      <p data-i18n="book.body"></p>
+      <div class="channels channels-stacked" data-render="channels"></div>
+      <form method="dialog">
+        <button class="close" data-i18n="book.close">Zatvori</button>
+      </form>
+    </div>
+  </dialog>
+
+  <script src="js/content.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
