@@ -231,6 +231,17 @@ window.GC = {
         en: "Yes, for spray tans. Perfect before a wedding or a hen party, when several of you are getting ready.",
       },
     },
+    // `link` adds a link under the answer. `hiring: true` hides this question
+    // whenever the hiring band is switched off (hiring.show: false).
+    {
+      hiring: true,
+      q: { sr: "Da li tražite saradnice?", en: "Are you hiring?" },
+      a: {
+        sr: "Da. Ako se baviš manikirom, šminkom, trepavicama, depilacijom ili trajnom šminkom i želiš da radiš u salonu, javi nam se.",
+        en: "Yes. If you do manicures, make-up, lashes, waxing or permanent make-up and want to work from a salon, get in touch.",
+      },
+      link: { href: "index.html#saradnja", text: { sr: "Tražimo saradnice", en: "We're hiring" } },
+    },
   ],
 
   // Interface text for both languages.

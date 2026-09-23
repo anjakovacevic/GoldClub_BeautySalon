@@ -347,9 +347,15 @@
 
     faq: function (root) {
       (GC.faq || []).forEach(function (f) {
+        if (f.hiring && !GC.hiring.show) return;
+        var answer = el("p", { text: tr(f.a) });
+        if (f.link) {
+          answer.appendChild(document.createTextNode(" "));
+          answer.appendChild(el("a", { class: "link", href: f.link.href, text: tr(f.link.text) + " →" }));
+        }
         root.appendChild(el("details", null, [
           el("summary", { text: tr(f.q) }),
-          el("p", { text: tr(f.a) }),
+          answer,
         ]));
       });
     },
