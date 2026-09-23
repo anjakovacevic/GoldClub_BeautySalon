@@ -31,7 +31,8 @@
           <li><a href="#usluge" data-i18n="nav.services">Usluge</a></li>
           <li><a href="#cenovnik" data-i18n="nav.prices">Cenovnik</a></li>
           <li><a href="#salon" data-i18n="nav.salon">Salon</a></li>
-          <li><a href="#kontakt" data-i18n="nav.contact">Kontakt</a></li>
+          <li><a href="#utisci" data-i18n="nav.reviews">Utisci</a></li>
+          <li><a href="#lokacija" data-i18n="nav.contact">Lokacija</a></li>
         </ul>
         <div class="lang" role="group" aria-label="Jezik / Language">
           <button type="button" data-lang="sr" aria-pressed="true">SR</button>
@@ -98,7 +99,24 @@
       </div>
     </section>
 
-    <section class="contact" id="kontakt" aria-labelledby="contact-title">
+    <section class="reviews" id="utisci" aria-labelledby="reviews-title">
+      <div class="wrap">
+        <div class="reviews-head">
+          <h2 id="reviews-title" class="section-title" data-i18n="reviews.title">Šta kažu naše klijentkinje</h2>
+          <div class="reviews-arrows">
+            <button type="button" class="arrow" data-review-step="-1" data-i18n-label="reviews.prev" aria-label="Prethodni utisak">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+            </button>
+            <button type="button" class="arrow" data-review-step="1" data-i18n-label="reviews.next" aria-label="Sledeći utisak">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="carousel" data-render="reviews" role="region" aria-roledescription="carousel" aria-labelledby="reviews-title"></div>
+      </div>
+    </section>
+
+    <section class="contact" id="lokacija" aria-labelledby="contact-title">
       <div class="wrap contact-inner">
         <div class="contact-copy">
           <h2 id="contact-title" class="section-title" data-i18n="contact.title">Dođi kod nas</h2>

@@ -1,7 +1,7 @@
 # Gold Club — website plan
 
 ## What we know (from the Instagram material)
-- Salon Gold Club, Blagoja Parovića 15/18, Banovo brdo, Beograd
+- Salon Gold Club, Trgovačka 7a, Banovo brdo, Beograd
 - +381 62 596 994 · @salongoldclub · @spraytangoldclub · goldclubspraytan@gmail.com
 - Tagline in their own material: "The place where hot girls get even hotter"
 - Current services: Spray tan, Lash & Brow lift, Massage (prices in RSD from the "Cenovnik" post)
@@ -38,7 +38,7 @@ Type: **Bodoni Moda** (display, fashion-editorial, has č ć š ž đ) + **Jost*
 
 ## Layout
 ```
-[ Gold Club          Usluge  Cenovnik  Salon  Kontakt   SR/EN  (Zakaži) ]
+[ Gold Club          Usluge  Cenovnik  Salon  Lokacija  SR/EN  (Zakaži) ]
 
   GOLD                      ╭────────╮
   CLUB  (huge Bodoni)       │ arch   │
@@ -52,7 +52,7 @@ Type: **Bodoni Moda** (display, fashion-editorial, has č ć š ž đ) + **Jost*
 ------------------------------------------------------------------
   Salon — nail-bar photo + Banovo brdo copy
 ------------------------------------------------------------------
-  Kontakt — address, phone, Viber/WhatsApp/IG, embedded map
+  Lokacija — address, online booking (Sredi me), phone, Viber/WhatsApp/IG, embedded map
 ```
 Left-aligned text; the arch is the one bold, repeated motif (it's their own shelf shape).
 

@@ -13,11 +13,13 @@ window.GC = {
     email: "goldclubspraytan@gmail.com",
     instagram: "salongoldclub",
     instagramSprayTan: "spraytangoldclub",
-    address: "Blagoja Parovića 15/18",
+    // Online booking (Sredi me). Set to null to hide the "Zakaži online" button.
+    bookingUrl: "https://www.sredime.rs/widget/gold-club",
+    address: "Trgovačka 7a",
     area: { sr: "Banovo brdo, Beograd", en: "Banovo Brdo, Belgrade" },
-    mapsLink: "https://maps.app.goo.gl/NHbKzWWwTVsYXMMg9",
+    mapsLink: "https://www.google.com/maps/search/?api=1&query=Trgova%C4%8Dka+7a,+Beograd",
     mapsEmbed:
-      "https://www.google.com/maps?q=Blagoja+Parovi%C4%87a+15,+Beograd&z=16&output=embed",
+      "https://www.google.com/maps?q=Trgova%C4%8Dka+7a,+Beograd&z=16&output=embed",
     // Set to e.g. { sr: "Pon–Sub 10–20h", en: "Mon–Sat 10am–8pm" } once known.
     hours: null,
   },
@@ -95,6 +97,56 @@ window.GC = {
     },
   ],
 
+  // "What our clients say" carousel. PLACEHOLDERS: replace with real reviews
+  // (with the client's permission). Any number of reviews works; `rating` is 1–5.
+  reviews: [
+    {
+      name: "Jelena M.",
+      service: { sr: "Spray tan", en: "Spray tan" },
+      rating: 5,
+      text: {
+        sr: "Najprirodniji spray tan koji sam ikad imala. Boja je bila savršena za moj ten i trajala je duže od nedelju dana.",
+        en: "The most natural spray tan I've ever had. The shade was perfect for my skin and it lasted more than a week.",
+      },
+    },
+    {
+      name: "Milica P.",
+      service: { sr: "Lash & brow lift", en: "Lash & brow lift" },
+      rating: 5,
+      text: {
+        sr: "Više ne koristim maskaru. Trepavice podignute, obrve uredne, a ja svako jutro uštedim dvadeset minuta.",
+        en: "I've stopped using mascara. Lashes lifted, brows tidy, and I save twenty minutes every morning.",
+      },
+    },
+    {
+      name: "Ana S.",
+      service: { sr: "Masaža", en: "Massage" },
+      rating: 5,
+      text: {
+        sr: "Sat vremena potpunog mira. Izašla sam laka kao pero i odmah zakazala sledeći termin.",
+        en: "An hour of total calm. I walked out light as a feather and booked my next visit on the spot.",
+      },
+    },
+    {
+      name: "Teodora K.",
+      service: { sr: "Spray tan na adresi", en: "Spray tan at home" },
+      rating: 5,
+      text: {
+        sr: "Došle su kod mene pred venčanje i sredile nas pet devojaka. Profesionalno, brzo i uz mnogo smeha.",
+        en: "They came to my place before my wedding and did all five of us. Professional, quick and full of laughs.",
+      },
+    },
+    {
+      name: "Marija D.",
+      service: { sr: "Lash & brow lift + maska", en: "Lash & brow lift + mask" },
+      rating: 5,
+      text: {
+        sr: "Salon je predivan, a atmosfera toliko opuštena da sam skoro zaspala na tretmanu. Rezultat je odličan.",
+        en: "The salon is gorgeous and so relaxing I nearly fell asleep during the treatment. The result is lovely.",
+      },
+    },
+  ],
+
   // Shown as a small band near the bottom. Set `show: false` to hide it.
   hiring: {
     show: true,
@@ -109,7 +161,8 @@ window.GC = {
     "nav.services": { sr: "Usluge", en: "Treatments" },
     "nav.prices": { sr: "Cenovnik", en: "Prices" },
     "nav.salon": { sr: "Salon", en: "Salon" },
-    "nav.contact": { sr: "Kontakt", en: "Contact" },
+    "nav.contact": { sr: "Lokacija", en: "Location" },
+    "nav.reviews": { sr: "Utisci", en: "Reviews" },
     "nav.menu": { sr: "Meni", en: "Menu" },
     book: { sr: "Zakaži termin", en: "Book an appointment" },
     "hero.tagline": { sr: "The place where hot girls get even hotter.", en: "The place where hot girls get even hotter." },
@@ -136,6 +189,11 @@ window.GC = {
       sr: "Radni sto u salonu Gold Club sa zlatnim detaljima i policom za lakove u obliku luka",
       en: "A workstation at Gold Club with gold details and an arched polish shelf",
     },
+    "reviews.title": { sr: "Šta kažu naše klijentkinje", en: "What our clients say" },
+    "reviews.prev": { sr: "Prethodni utisak", en: "Previous review" },
+    "reviews.next": { sr: "Sledeći utisak", en: "Next review" },
+    "reviews.goTo": { sr: "Utisak", en: "Review" },
+    "reviews.rating": { sr: "Ocena {n} od 5", en: "Rated {n} out of 5" },
     "contact.title": { sr: "Dođi kod nas", en: "Visit us" },
     "contact.address": { sr: "Adresa", en: "Address" },
     "contact.phone": { sr: "Telefon", en: "Phone" },
@@ -154,6 +212,7 @@ window.GC = {
       sr: "Izaberi kako ti je najlakše. Odgovaramo u toku dana.",
       en: "Pick whatever's easiest for you. We reply the same day.",
     },
+    "book.online": { sr: "Zakaži online", en: "Book online" },
     "book.call": { sr: "Pozovi", en: "Call" },
     "book.close": { sr: "Zatvori", en: "Close" },
     "footer.rights": { sr: "Sva prava zadržana.", en: "All rights reserved." },
