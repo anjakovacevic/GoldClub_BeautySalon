@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vanjakovacevic1.github.io/GoldClub_BeautySalon/sitemap.xml

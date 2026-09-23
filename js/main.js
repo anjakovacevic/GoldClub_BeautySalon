@@ -39,6 +39,20 @@
     return node;
   }
 
+  function serviceById(id) {
+    return GC.services.filter(function (s) { return s.id === id; })[0] || GC.services[0];
+  }
+
+  function priceList(s) {
+    return el("ul", { class: "menu-items" }, s.prices.map(function (p) {
+      return el("li", null, [
+        el("span", { class: "item-name", text: tr(p.name) }),
+        el("span", { class: "item-leader", "aria-hidden": "true" }),
+        el("span", { class: "item-price", text: p.price == null ? t("prices.onRequest") : formatPrice(p.price) }),
+      ]);
+    }));
+  }
+
   var ICONS = {
     phone:
       '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h2.6l1.4 4-2 1.3a11 11 0 0 0 6.6 6.6l1.3-2 4 1.4v2.6a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z"/></svg>',
@@ -240,6 +254,7 @@
               points,
               el("p", { class: "service-price" }, [
                 el("span", { text: from }),
+                s.page && el("a", { class: "link", href: s.page, text: t("services.more") }),
                 el("a", { class: "link", href: "cenovnik.html#price-" + s.id, text: t("services.seePrices") }),
               ]),
             ]),
@@ -250,19 +265,53 @@
 
     prices: function (root) {
       GC.services.forEach(function (s) {
-        var list = el("ul", { class: "menu-items" }, s.prices.map(function (p) {
-          return el("li", null, [
-            el("span", { class: "item-name", text: tr(p.name) }),
-            el("span", { class: "item-leader", "aria-hidden": "true" }),
-            el("span", { class: "item-price", text: p.price == null ? t("prices.onRequest") : formatPrice(p.price) }),
-          ]);
-        }));
         root.appendChild(
           el("section", { class: "menu-group", id: "price-" + s.id }, [
             el("h3", { text: tr(s.name) }),
-            list,
+            priceList(s),
           ])
         );
+      });
+    },
+
+    // Treatment page: intro, points and prices of the service named in data-service.
+    "service-detail": function (root) {
+      var s = serviceById(root.getAttribute("data-service"));
+      root.appendChild(el("p", { class: "service-intro", text: tr(s.intro) }));
+      root.appendChild(el("ul", { class: "points" }, tr(s.points).map(function (p) {
+        return el("li", { text: p });
+      })));
+      root.appendChild(el("h2", { class: "treatment-subtitle", text: t("treatment.prices") }));
+      root.appendChild(priceList(s));
+    },
+
+    // The numbered steps of the treatment named in data-service.
+    process: function (root) {
+      (serviceById(root.getAttribute("data-service")).process || []).forEach(function (step, i) {
+        root.appendChild(el("li", null, [
+          el("span", { class: "process-num", text: t("process.step") + " " + (i + 1) }),
+          el("h3", { text: tr(step.name) }),
+          el("p", { text: tr(step.text) }),
+        ]));
+      });
+    },
+
+    // Cards linking to every treatment page except the one in data-service.
+    "other-services": function (root) {
+      var current = root.getAttribute("data-service");
+      GC.services.forEach(function (s) {
+        if (s.id === current || !s.page) return;
+        root.appendChild(el("a", { class: "explore-card", href: s.page }, [
+          el("span", { class: "explore-title", text: tr(s.name) }),
+          el("span", { class: "explore-text", text: tr(s.intro) }),
+          el("span", { class: "explore-more", text: t("services.more") }),
+        ]));
+      });
+    },
+
+    "service-links": function (root) {
+      GC.services.forEach(function (s) {
+        if (s.page) root.appendChild(el("li", null, [el("a", { href: s.page, text: tr(s.name) })]));
       });
     },
 
@@ -345,9 +394,12 @@
       });
     },
 
+    // With data-service, only that treatment's questions plus the general ones.
     faq: function (root) {
+      var only = root.getAttribute("data-service");
       (GC.faq || []).forEach(function (f) {
         if (f.hiring && !GC.hiring.show) return;
+        if (only && f.service && f.service !== only) return;
         var answer = el("p", { text: tr(f.a) });
         if (f.link) {
           answer.appendChild(document.createTextNode(" "));

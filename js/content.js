@@ -7,6 +7,11 @@
  * Prices are in RSD. Write them as plain numbers (1900, not "1.900").
  */
 window.GC = {
+  // The live address of the site, with a trailing slash. Used for Google: canonical
+  // links, sitemap.xml and the business details. Change it when the site moves to its
+  // own domain (e.g. "https://www.goldclub.rs/"), then run `node tools/prerender.js`.
+  site: { url: "https://vanjakovacevic1.github.io/GoldClub_BeautySalon/" },
+
   contact: {
     phone: "+381 62 596 994",
     phoneRaw: "+38162596994",
@@ -21,11 +26,14 @@ window.GC = {
       "https://www.google.com/maps?q=Trgova%C4%8Dka+7a,+Beograd&z=16&output=embed",
     // Set to e.g. { sr: "Pon–Sub 10–20h", en: "Mon–Sat 10am–8pm" } once known.
     hours: null,
+    // The same hours for Google, in schema.org form, e.g. ["Mo-Sa 10:00-20:00"].
+    openingHours: null,
   },
 
   services: [
     {
       id: "spray-tan",
+      page: "spray-tan.html",
       image: "assets/img/hero-spraytan.jpg",
       imageAlt: {
         sr: "Nanošenje spray tan preparata pištoljem za raspršivanje",
@@ -52,6 +60,7 @@ window.GC = {
     },
     {
       id: "lash-brow",
+      page: "lash-brow-lift.html",
       image: "assets/img/lash-brow.jpg",
       imageAlt: {
         sr: "Profil lica sa podignutim trepavicama i oblikovanim obrvama",
@@ -66,6 +75,44 @@ window.GC = {
         sr: ["Prirodan, otvoren pogled", "Bez ekstenzija i lepka", "Efekat traje nedeljama"],
         en: ["A natural, open look", "No extensions or glue", "Lasts for weeks"],
       },
+      // "Postupak laminacije": the steps shown on the treatment page, in order.
+      process: [
+        {
+          name: { sr: "Čišćenje", en: "Cleansing" },
+          text: {
+            sr: "Penom za čišćenje skidamo šminku i masnoću sa trepavica i obrva, da preparati deluju ravnomerno.",
+            en: "A foam cleanser removes make-up and oil from lashes and brows, so the products work evenly.",
+          },
+        },
+        {
+          name: { sr: "Omekšavanje", en: "Softening" },
+          text: {
+            sr: "Trepavice podižemo i uvijamo, obrve češljamo u željeni oblik, a lifting losion omekšava dlačice da prime novi oblik.",
+            en: "We lift and curl the lashes and brush the brows into shape, while a lifting lotion softens the hairs so they take the new shape.",
+          },
+        },
+        {
+          name: { sr: "Neutralizacija", en: "Setting" },
+          text: {
+            sr: "Drugi preparat učvršćuje novi oblik, pa trepavice ostaju podignute, a obrve uredne nedeljama.",
+            en: "A second product sets the new shape, so lashes stay lifted and brows stay neat for weeks.",
+          },
+        },
+        {
+          name: { sr: "Farbanje", en: "Tinting" },
+          text: {
+            sr: "Boja za trepavice i obrve daje dubinu i puniji izgled, kao da nosiš maskaru i olovku.",
+            en: "A lash and brow tint adds depth and a fuller look, as if you were wearing mascara and brow pencil.",
+          },
+        },
+        {
+          name: { sr: "Nega", en: "Care" },
+          text: {
+            sr: "Na kraju hranljiva nega vraća dlačicama vlagu i sjaj.",
+            en: "Finally, a nourishing treatment gives the hairs back their moisture and shine.",
+          },
+        },
+      ],
       prices: [
         { name: { sr: "Lash lift", en: "Lash lift" }, price: 2500 },
         { name: { sr: "Brow lift", en: "Brow lift" }, price: 2500 },
@@ -81,6 +128,7 @@ window.GC = {
     },
     {
       id: "massage",
+      page: "masaza.html",
       image: "assets/img/massage.jpg",
       imageAlt: { sr: "Masaža leđa", en: "Back massage" },
       name: { sr: "Masaža", en: "Massage" },
@@ -188,8 +236,11 @@ window.GC = {
   // Gift voucher builder. Services and prices come from `services` above.
   voucher: { show: true },
 
+  // `service` ties a question to a treatment page; questions without it show on every
+  // page that has questions.
   faq: [
     {
+      service: "spray-tan",
       q: { sr: "Koliko traje spray tan?", en: "How long does a spray tan last?" },
       a: {
         sr: "Obično 7 do 10 dana. Najduže traje ako svaki dan hidriraš kožu i izbegavaš piling i duge tople kupke.",
@@ -197,6 +248,7 @@ window.GC = {
       },
     },
     {
+      service: "spray-tan",
       q: { sr: "Da li će mi ten biti narandžast?", en: "Will I turn orange?" },
       a: {
         sr: "Ne. Nijansu biramo prema tvom tenu i podtonu, a koristimo formule koje daju prirodnu, bronzanu boju.",
@@ -204,6 +256,7 @@ window.GC = {
       },
     },
     {
+      service: "spray-tan",
       q: { sr: "Kako da se pripremim?", en: "How should I prepare?" },
       a: {
         sr: "Dan ranije uradi piling i brijanje ili depilaciju. Na tretman dođi bez kreme, dezodoransa i šminke, u širokoj tamnoj odeći.",
@@ -211,6 +264,7 @@ window.GC = {
       },
     },
     {
+      service: "spray-tan",
       q: { sr: "Kada smem da se istuširam?", en: "When can I shower?" },
       a: {
         sr: "Prvo tuširanje posle otprilike 8 sati, mlakom vodom i bez gela. Tačno vreme zavisi od formule, pa ti to kažemo na tretmanu.",
@@ -218,6 +272,7 @@ window.GC = {
       },
     },
     {
+      service: "lash-brow",
       q: { sr: "Koliko traje lash lift?", en: "How long does a lash lift last?" },
       a: {
         sr: "Efekat traje nekoliko nedelja, dok trepavice prirodno ne izrastu. Prva 24 sata ne kvasi trepavice.",
@@ -225,6 +280,7 @@ window.GC = {
       },
     },
     {
+      service: "spray-tan",
       q: { sr: "Dolazite li na adresu?", en: "Do you come to my place?" },
       a: {
         sr: "Da, za spray tan. Idealno za pripreme pred venčanje ili devojačko veče, kada se sređuje više devojaka.",
@@ -328,13 +384,40 @@ window.GC = {
     book: { sr: "Zakaži termin", en: "Book an appointment" },
     "hero.tagline": { sr: "The place where hot girls get even hotter.", en: "The place where hot girls get even hotter." },
     "hero.lede": {
-      sr: "Spray tan, lash & brow lift i masaža u salonu na Banovom brdu.",
+      sr: "Spray tan, lash & brow lift i masaža u salonu na Banovom brdu, Beograd.",
       en: "Spray tan, lash & brow lifts and massage at our salon on Banovo Brdo, Belgrade.",
     },
     "hero.prices": { sr: "Pogledaj cenovnik", en: "See prices" },
     "services.title": { sr: "Tretmani", en: "Treatments" },
     "services.from": { sr: "od", en: "from" },
     "services.seePrices": { sr: "Cene", en: "Prices" },
+    "services.more": { sr: "Više o tretmanu", en: "More about it" },
+    "services.others": { sr: "Ostali tretmani", en: "Other treatments" },
+    "footer.treatments": { sr: "Tretmani", en: "Treatments" },
+    "treatment.eyebrow": { sr: "Banovo brdo · Beograd", en: "Banovo Brdo · Belgrade" },
+    "treatment.prices": { sr: "Cene", en: "Prices" },
+    "spray.title": { sr: "Spray tan na Banovom brdu", en: "Spray tan on Banovo Brdo" },
+    "spray.lede": {
+      sr: "Spray tan u salonu Gold Club na Banovom brdu u Beogradu: preplanuo, prirodan ten posle jednog tretmana, bez sunca i solarijuma. Nijansu biramo prema tvom tenu, a pred venčanja i devojačke večeri dolazimo i na adresu.",
+      en: "Spray tans at Gold Club on Banovo Brdo, Belgrade: a natural, sun-kissed tan after one session, without sun or sunbeds. We match the shade to your skin, and before weddings and hen parties we come to you.",
+    },
+    "lash.title": { sr: "Lash & brow lift na Banovom brdu", en: "Lash & brow lift on Banovo Brdo" },
+    "lash.lede": {
+      sr: "Lash lift podiže i uvija tvoje prirodne trepavice, a brow lift sređuje obrve tako da stoje uredno ceo dan. Radimo ih u salonu Gold Club na Banovom brdu u Beogradu, pojedinačno ili zajedno, a uz paket i hidratantnu masku i masažu lica.",
+      en: "A lash lift lifts and curls your own lashes, and a brow lift sets your brows so they stay neat all day. We do them at Gold Club on Banovo Brdo, Belgrade, separately or together, and as a package with a hydrating mask and facial massage.",
+    },
+    "process.eyebrow": { sr: "Korak po korak", en: "Step by step" },
+    "process.title": { sr: "Postupak laminacije", en: "How lamination works" },
+    "process.lede": {
+      sr: "Laminacija trepavica i obrva radi se u pet koraka, istim redom za trepavice i za obrve.",
+      en: "Lash and brow lamination takes five steps, in the same order for lashes and brows.",
+    },
+    "process.step": { sr: "Korak", en: "Step" },
+    "massage.title": { sr: "Masaža na Banovom brdu", en: "Massage on Banovo Brdo" },
+    "massage.lede": {
+      sr: "Opuštajuća masaža u salonu Gold Club na Banovom brdu u Beogradu. Sat vremena bez žurbe, u toplom i mirnom prostoru, da se mišići opuste i glava odmori. Cenu i termin dogovaramo kada nam se javiš.",
+      en: "A relaxing massage at Gold Club on Banovo Brdo, Belgrade. An unhurried hour in a warm, quiet room, so your muscles loosen and your mind rests. Get in touch and we'll agree the price and a time.",
+    },
     "prices.title": { sr: "Cenovnik", en: "Price list" },
     "prices.note": {
       sr: "Cene su u dinarima. Za pitanja i termine javi nam se telefonom, na Viber ili Instagram.",

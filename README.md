@@ -8,16 +8,20 @@ no framework, no database, no build step.
 ```
 GoldClub_BeautySalon/
 ├── index.html        home: hero, treatments, salon, location, reviews
-├── spray-tan.html    Spray tan vodič: tan planner + FAQ
+├── spray-tan.html    spray tan page: treatment, prices, tan planner, FAQ
+├── lash-brow-lift.html  lash & brow lift page: treatment, prices, FAQ
+├── masaza.html       massage page
 ├── cenovnik.html     price list + gift voucher
+├── sitemap.xml, robots.txt   for Google (generated, see below)
+├── tools/prerender.js        writes the content into the HTML for Google
 ├── css/styles.css    all styles (shared by every page)
 ├── js/content.js     all editable content (services, prices, reviews, contact, texts)
 ├── js/main.js        rendering, language toggle, menu, booking dialog, reviews carousel
 └── assets/           favicon and photos (assets/img/)
 ```
 
-The header, footer and booking dialog are written out in each of the three HTML files.
-If you change one of them (e.g. add a nav link), make the same change in all three pages.
+The header, footer and booking dialog are written out in each HTML page.
+If you change one of them (e.g. add a nav link), make the same change in every page.
 
 ## Setup
 
@@ -56,6 +60,29 @@ runs the `.html` pages, `css/styles.css` and `js/*.js` directly. There is no bun
 
 To "build" a release, take the project folder as it is (you can leave out `.git`, `README.md`
 and `PLAN.md`) and upload it.
+
+## Google (SEO): run the prerender script after editing
+
+The pages build their text from `js/content.js` in the browser. Google indexes a page more
+reliably when that text is already in the HTML, so after editing `content.js` or a page, run:
+
+```
+node tools/prerender.js
+```
+
+It opens every page in headless Chrome (or Edge / Chromium), copies the Serbian text into the
+HTML, and regenerates the canonical links, the business details for Google (JSON-LD),
+`sitemap.xml` and `robots.txt`. Commit the changed files. Running it twice changes nothing.
+If you forget, visitors still see the new content; only Google sees the old text until the next run.
+
+- **Site address:** `site.url` in `content.js`. Change it when the site moves to its own domain,
+  then run the script.
+- **Opening hours:** fill in `contact.hours` (shown on the page) and `contact.openingHours`
+  (for Google, e.g. `["Mo-Sa 10:00-20:00"]`), then run the script.
+- **A new treatment page:** copy `masaza.html`, set its `data-service`, add `page` to the service
+  in `content.js`, add the page to `PAGES` in `tools/prerender.js`, then run the script.
+- After going live, add the site in [Google Search Console](https://search.google.com/search-console)
+  and submit `sitemap.xml`.
 
 ## Deploy
 Upload the folder as-is to Netlify, Cloudflare Pages, GitHub Pages or any static host,

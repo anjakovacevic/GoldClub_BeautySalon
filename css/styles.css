@@ -318,9 +318,67 @@ figure { margin: 0; }
 .explore-more::after { content: "→"; display: inline-block; margin-left: .4em; transition: transform .25s; }
 
 /* Subpages start right under the header, so their first section needs less top space. */
-.page-guide > section:first-child,
 .page-prices > section:first-child { padding-top: clamp(2.5rem, 6vw, 4.5rem); border-top: 0; }
 .explore-card:hover .explore-more::after { transform: translateX(.3rem); }
+
+/* ---------- Treatment pages ---------- */
+
+.treatment { padding-block: clamp(2.5rem, 6vw, 4.5rem) var(--section); overflow: hidden; }
+.treatment-inner {
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+  gap: clamp(2rem, 6vw, 6rem); align-items: center;
+}
+.treatment-lede { margin-top: 1.25rem; max-width: var(--measure); font-size: 1.125rem; line-height: 1.7; }
+.service-detail { max-width: var(--measure); }
+.service-detail .service-intro { color: var(--mocha-soft); }
+.treatment-subtitle { font-size: var(--step-1); font-style: italic; margin: 2.25rem 0 1rem; }
+.treatment .hero-arch { width: min(100%, 22rem); }
+.hero-arch-left img { object-position: 30% center; }
+
+/* Process: numbered steps on a gold line, like the salon's own graphic. */
+.process {
+  padding-block: var(--section);
+  background: color-mix(in srgb, var(--sand) 55%, var(--sateen));
+  --process-bg: color-mix(in srgb, var(--sand) 55%, var(--sateen));
+}
+.process-lede { margin-top: 1rem; max-width: var(--measure); color: var(--mocha-soft); }
+.process-steps {
+  position: relative; list-style: none; margin: clamp(2.5rem, 5vw, 3.5rem) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2rem 1.75rem;
+}
+.process-steps::before {
+  content: ""; position: absolute; top: .45rem; left: 0; right: 0; height: 1px;
+  background: var(--foil-rule);
+}
+.process-steps li { position: relative; padding-top: 2.1rem; }
+.process-steps li::before {
+  content: ""; position: absolute; top: 0; left: 0;
+  width: .9rem; height: .9rem; border-radius: 50%;
+  background: var(--foil-bright); box-shadow: 0 0 0 5px var(--process-bg);
+}
+.process-num { font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-deep); }
+.process-steps h3 { font-size: var(--step-1); font-style: italic; margin-top: .3rem; }
+.process-steps p { margin-top: .6rem; font-size: var(--step--1); color: var(--mocha-soft); }
+
+@media (max-width: 860px) {
+  .process-steps { grid-template-columns: 1fr; gap: 1.75rem; }
+  /* One segment per step, from its dot down to the next, so the line stops at the last dot. */
+  .process-steps::before { display: none; }
+  .process-steps li:not(:last-child)::after {
+    content: ""; position: absolute; left: .45rem; top: .8rem; bottom: -2.1rem; width: 1px;
+    background: linear-gradient(180deg, var(--gold), var(--gold-light));
+  }
+  .process-steps li { padding: 0 0 0 2.25rem; }
+  .process-steps li::before { top: .35rem; }
+}
+
+.others .section-title { margin-bottom: clamp(1.5rem, 4vw, 2.5rem); }
+.others .explore-card:nth-child(2) { background: color-mix(in srgb, var(--sand) 70%, var(--sateen)); }
+
+@media (max-width: 760px) {
+  .treatment-inner { grid-template-columns: 1fr; }
+  .treatment .hero-arch { justify-self: center; width: min(80%, 18rem); margin-top: 1rem; grid-row: 1; }
+}
 
 /* ---------- Salon ---------- */
 
@@ -474,14 +532,16 @@ figure { margin: 0; }
 /* ---------- Footer ---------- */
 
 .site-footer { padding-block: clamp(3rem, 6vw, 4.5rem) 2rem; }
-.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 2rem; font-size: var(--step--1); }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2rem; font-size: var(--step--1); }
+.footer-links { list-style: none; margin: 0; padding: 0; display: grid; gap: .2rem; }
 .footer-grid a { text-decoration: none; }
 .footer-grid a:hover { color: var(--gold-deep); }
 .footer-tag { margin-top: .75rem; font-family: var(--serif); font-style: italic; font-size: 1.05rem; color: var(--mocha-soft); max-width: 22ch; }
 .footer-label { color: var(--gold-deep); letter-spacing: .2em; text-transform: uppercase; font-size: .72rem; margin-bottom: .6rem; font-weight: 400; }
 .footer-base { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid color-mix(in srgb, var(--gold) 35%, transparent); }
 .site-footer small { color: var(--mocha-soft); font-size: var(--step--1); }
-@media (max-width: 760px) { .footer-grid { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } }
 
 /* ---------- Booking dialog ---------- */
 

@@ -3,28 +3,31 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Gold Club · Beauty salon, Banovo brdo</title>
+  <title>Gold Club · Spray tan, lash lift i masaža · Banovo brdo, Beograd</title>
   <meta name="description" content="Gold Club, salon lepote na Banovom brdu u Beogradu. Spray tan, lash & brow lift i masaža. Zakazivanje: +381 62 596 994.">
   <meta name="theme-color" content="#F5ECE2">
+  <link rel="canonical" href="https://vanjakovacevic1.github.io/GoldClub_BeautySalon/">
+  <meta property="og:url" content="https://vanjakovacevic1.github.io/GoldClub_BeautySalon/">
+  <meta property="og:type" content="website">
   <meta property="og:title" content="Gold Club · Beauty salon">
   <meta property="og:description" content="The place where hot girls get even hotter. Spray tan, lash & brow lift i masaža na Banovom brdu.">
-  <meta property="og:image" content="assets/img/spraytan-legs.jpg">
+  <meta property="og:image" content="https://vanjakovacevic1.github.io/GoldClub_BeautySalon/assets/img/spraytan-legs.jpg">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
-  <!-- Local SEO: lets Google show address, phone and hours. Add "url" and
-       "openingHours" once the domain and hours are known. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "BeautySalon",
+    "@id": "https://vanjakovacevic1.github.io/GoldClub_BeautySalon/#salon",
     "name": "Gold Club",
-    "description": "Spray tan, lash & brow lift i masaža na Banovom brdu.",
+    "description": "Spray tan, lash & brow lift i masaža u salonu na Banovom brdu, Beograd.",
+    "url": "https://vanjakovacevic1.github.io/GoldClub_BeautySalon/",
+    "image": "https://vanjakovacevic1.github.io/GoldClub_BeautySalon/assets/img/spraytan-legs.jpg",
     "telephone": "+381 62 596 994",
     "email": "goldclubspraytan@gmail.com",
-    "image": "assets/img/spraytan-legs.jpg",
     "priceRange": "1.900–5.400 RSD",
     "address": {
       "@type": "PostalAddress",
@@ -33,7 +36,46 @@
       "addressRegion": "Banovo brdo",
       "addressCountry": "RS"
     },
-    "sameAs": ["https://www.instagram.com/salongoldclub"]
+    "areaServed": "Beograd",
+    "sameAs": [
+      "https://www.instagram.com/salongoldclub"
+    ],
+    "makesOffer": [
+      {
+        "@type": "Offer",
+        "priceCurrency": "RSD",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Spray tan"
+        },
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "minPrice": 1900,
+          "priceCurrency": "RSD"
+        }
+      },
+      {
+        "@type": "Offer",
+        "priceCurrency": "RSD",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Lash & brow lift"
+        },
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "minPrice": 2500,
+          "priceCurrency": "RSD"
+        }
+      },
+      {
+        "@type": "Offer",
+        "priceCurrency": "RSD",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Masaža"
+        }
+      }
+    ]
   }
   </script>
 </head>
@@ -73,7 +115,7 @@
             <span class="wm-line">Club</span>
           </h1>
           <p class="tagline" data-i18n="hero.tagline">The place where hot girls get even hotter.</p>
-          <p class="lede" data-i18n="hero.lede">Spray tan, lash &amp; brow lift i masaža u salonu na Banovom brdu.</p>
+          <p class="lede" data-i18n="hero.lede">Spray tan, lash &amp; brow lift i masaža u salonu na Banovom brdu, Beograd.</p>
           <div class="hero-actions">
             <button type="button" class="btn" data-open-booking data-i18n="book">Zakaži termin</button>
             <a class="link" href="cenovnik.html" data-i18n="hero.prices">Pogledaj cenovnik</a>
@@ -91,7 +133,7 @@
     <section class="services" id="usluge" aria-labelledby="services-title">
       <div class="wrap">
         <h2 id="services-title" class="section-title" data-i18n="services.title">Tretmani</h2>
-        <div class="service-list" data-render="services"></div>
+        <div class="service-list" data-render="services"><article class="service" id="spray-tan"><figure class="service-photo"><div class="arch"><img src="assets/img/hero-spraytan.jpg" alt="Nanošenje spray tan preparata pištoljem za raspršivanje" loading="lazy"></div></figure><div class="service-copy"><h3 class="service-name">Spray tan</h3><p class="service-intro">Preplanuli ten već posle jednog tretmana, za svečani i za svakodnevni autfit. Boju biramo zajedno, prema tvom tenu.</p><ul class="points"><li>Bez rizika za kožu</li><li>Boja koja odgovara tebi</li><li>Najkvalitetnije formule</li><li>Jednostavno održavanje boje</li></ul><p class="service-price"><span>od 1.900 RSD</span><a class="link" href="spray-tan.html">Više o tretmanu</a><a class="link" href="cenovnik.html#price-spray-tan">Cene</a></p></div></article><article class="service service-flip" id="lash-brow"><figure class="service-photo"><div class="arch"><img src="assets/img/lash-brow.jpg" alt="Profil lica sa podignutim trepavicama i oblikovanim obrvama" loading="lazy"></div></figure><div class="service-copy"><h3 class="service-name">Lash &amp; brow lift</h3><p class="service-intro">Tvoje prirodne trepavice, podignute i uvijene, i obrve koje stoje tačno kako treba. Bez ekstenzija i bez jutarnjeg oblikovanja.</p><ul class="points"><li>Prirodan, otvoren pogled</li><li>Bez ekstenzija i lepka</li><li>Efekat traje nedeljama</li></ul><p class="service-price"><span>od 2.500 RSD</span><a class="link" href="lash-brow-lift.html">Više o tretmanu</a><a class="link" href="cenovnik.html#price-lash-brow">Cene</a></p></div></article><article class="service" id="massage"><figure class="service-photo"><div class="arch"><img src="assets/img/massage.jpg" alt="Masaža leđa" loading="lazy"></div></figure><div class="service-copy"><h3 class="service-name">Masaža</h3><p class="service-intro">Sat vremena samo za tebe. Masaža koja opušta mišiće, smiruje glavu i vraća te u dan lakšu nego što si došla.</p><ul class="points"><li>Smanjuje stres</li><li>Opušta mišiće</li><li>Bolji san</li><li>Poboljšava cirkulaciju</li></ul><p class="service-price"><span>Cena na upit</span><a class="link" href="masaza.html">Više o tretmanu</a><a class="link" href="cenovnik.html#price-massage">Cene</a></p></div></article></div>
       </div>
     </section>
 
@@ -100,13 +142,13 @@
         <a class="explore-card" href="spray-tan.html">
           <span class="eyebrow" data-i18n="explore.guide.eyebrow">Spray tan vodič</span>
           <span class="explore-title" data-i18n="explore.guide.title">Isplaniraj svoj ten</span>
-          <span class="explore-text" data-i18n="explore.guide.text"></span>
+          <span class="explore-text" data-i18n="explore.guide.text">Izaberi ten i nijansu, unesi datum i dobij plan: kada da zakažeš, kako da se pripremiš i kako da ten potraje.</span>
           <span class="explore-more" data-i18n="explore.guide.cta">Otvori vodič</span>
         </a>
         <a class="explore-card" href="cenovnik.html">
           <span class="eyebrow" data-i18n="explore.prices.eyebrow">Cenovnik</span>
           <span class="explore-title" data-i18n="explore.prices.title">Cene i poklon vaučeri</span>
-          <span class="explore-text" data-i18n="explore.prices.text"></span>
+          <span class="explore-text" data-i18n="explore.prices.text">Sve cene na jednom mestu, i poklon vaučer za bilo koji tretman koji sastaviš za minut.</span>
           <span class="explore-more" data-i18n="explore.prices.cta">Pogledaj cenovnik</span>
         </a>
       </div>
@@ -115,11 +157,11 @@
     <section class="salon" id="salon" aria-labelledby="salon-title">
       <div class="wrap salon-inner">
         <figure class="salon-photo">
-          <img src="assets/img/salon-nailbar.jpg" data-i18n-alt="salon.alt" alt="" width="560" height="776" loading="lazy">
+          <img src="assets/img/salon-nailbar.jpg" data-i18n-alt="salon.alt" alt="Radni sto u salonu Gold Club sa zlatnim detaljima i policom za lakove u obliku luka" width="560" height="776" loading="lazy">
         </figure>
         <div class="salon-copy">
           <h2 id="salon-title" class="section-title" data-i18n="salon.title">Salon na Banovom brdu</h2>
-          <p data-i18n="salon.body"></p>
+          <p data-i18n="salon.body">Gold Club je mali salon u kom se sve vrti oko tebe: topla svetla, mirna atmosfera i tretmani koje radimo polako i pažljivo. Dođi na spray tan pred proslavu, ili samo zato što je utorak.</p>
         </div>
       </div>
     </section>
@@ -128,14 +170,14 @@
       <div class="wrap contact-inner">
         <div class="contact-copy">
           <h2 id="contact-title" class="section-title" data-i18n="contact.title">Dođi kod nas</h2>
-          <dl class="contact-list" data-render="contact"></dl>
+          <dl class="contact-list" data-render="contact"><div><dt>Adresa</dt><dd><span>Trgovačka 7a<br>Banovo brdo, Beograd<br><a class="link" href="https://www.google.com/maps/search/?api=1&amp;query=Trgova%C4%8Dka+7a,+Beograd" target="_blank" rel="noopener">Otvori u Google mapama</a></span></dd></div><div><dt>Telefon</dt><dd><a href="tel:+38162596994">+381 62 596 994</a></dd></div><div><dt>Email</dt><dd><a href="mailto:goldclubspraytan@gmail.com">goldclubspraytan@gmail.com</a></dd></div><div><dt>Radno vreme</dt><dd><span>Po zakazivanju</span></dd></div></dl>
           <div class="channels" data-render="channels"></div>
         </div>
         <div class="map" id="map">
           <div class="map-placeholder">
             <p class="map-address">Trgovačka 7a<br><span>Banovo brdo</span></p>
             <button type="button" class="btn btn-small" id="map-load" data-i18n="contact.showMap">Prikaži mapu</button>
-            <small data-i18n="contact.mapNote"></small>
+            <small data-i18n="contact.mapNote">Mapa se učitava sa Google-a tek kada klikneš.</small>
           </div>
         </div>
       </div>
@@ -161,8 +203,8 @@
     <section class="hiring" id="saradnja" aria-labelledby="hiring-title" data-render="hiring" hidden>
       <div class="wrap hiring-inner">
         <h2 id="hiring-title" data-i18n="hiring.title">Tražimo saradnice</h2>
-        <p data-i18n="hiring.body"></p>
-        <ul class="roles" data-render="roles"></ul>
+        <p data-i18n="hiring.body">Ako se baviš nekom od ovih usluga i želiš da radiš u salonskom prostoru, javi nam se.</p>
+        <ul class="roles" data-render="roles"><li>Manikir</li><li>Profesionalna šminka</li><li>Svilene trepavice</li><li>Depilacija</li><li>Trajna šminka</li></ul>
         <a class="link" data-render="hiring-link" href="#" data-i18n="hiring.cta">Pošalji poruku</a>
       </div>
     </section>
@@ -173,6 +215,10 @@
       <div>
         <span class="brand">Gold Club</span>
         <p class="footer-tag">The place where hot girls get even hotter.</p>
+      </div>
+      <div>
+        <p class="footer-label" data-i18n="footer.treatments">Tretmani</p>
+        <ul class="footer-links" data-render="service-links"><li><a href="spray-tan.html">Spray tan</a></li><li><a href="lash-brow-lift.html">Lash &amp; brow lift</a></li><li><a href="masaza.html">Masaža</a></li></ul>
       </div>
       <div>
         <p class="footer-label" data-i18n="footer.visit">Adresa</p>
@@ -191,7 +237,7 @@
   <dialog class="booking" id="booking" aria-labelledby="booking-title">
     <div class="booking-inner">
       <h2 id="booking-title" data-i18n="book.title">Zakaži termin</h2>
-      <p data-i18n="book.body"></p>
+      <p data-i18n="book.body">Izaberi kako ti je najlakše. Odgovaramo u toku dana.</p>
       <div class="channels channels-stacked" data-render="channels"></div>
       <form method="dialog">
         <button class="close" data-i18n="book.close">Zatvori</button>
