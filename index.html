@@ -14,6 +14,28 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <!-- Local SEO: lets Google show address, phone and hours. Add "url" and
+       "openingHours" once the domain and hours are known. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BeautySalon",
+    "name": "Gold Club",
+    "description": "Spray tan, lash & brow lift i masaža na Banovom brdu.",
+    "telephone": "+381 62 596 994",
+    "email": "goldclubspraytan@gmail.com",
+    "image": "assets/img/spraytan-legs.jpg",
+    "priceRange": "1.900–5.400 RSD",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Trgovačka 7a",
+      "addressLocality": "Beograd",
+      "addressRegion": "Banovo brdo",
+      "addressCountry": "RS"
+    },
+    "sameAs": ["https://www.instagram.com/salongoldclub", "https://www.instagram.com/spraytangoldclub"]
+  }
+  </script>
 </head>
 <body>
   <a class="skip" href="#main">Preskoči na sadržaj</a>
@@ -29,6 +51,7 @@
       <nav id="site-nav" class="site-nav">
         <ul>
           <li><a href="#usluge" data-i18n="nav.services">Usluge</a></li>
+          <li><a href="#planer" data-i18n="nav.planner">Tan planer</a></li>
           <li><a href="#cenovnik" data-i18n="nav.prices">Cenovnik</a></li>
           <li><a href="#salon" data-i18n="nav.salon">Salon</a></li>
           <li><a href="#utisci" data-i18n="nav.reviews">Utisci</a></li>
@@ -74,6 +97,64 @@
       </div>
     </section>
 
+    <section class="planner" id="planer" aria-labelledby="planner-title">
+      <div class="wrap">
+        <div class="planner-head">
+          <p class="eyebrow" data-i18n="planner.eyebrow">Spray tan</p>
+          <h2 id="planner-title" class="section-title" data-i18n="planner.title">Isplaniraj svoj ten</h2>
+          <p class="planner-lede" data-i18n="planner.lede"></p>
+        </div>
+
+        <div class="planner-grid">
+          <form class="planner-form" id="planner-form" novalidate>
+            <fieldset>
+              <legend data-i18n="planner.tone">Tvoj ten</legend>
+              <div class="tones" data-render="tones"></div>
+            </fieldset>
+            <fieldset>
+              <legend data-i18n="planner.level">Željena nijansa</legend>
+              <div class="levels" data-render="levels"></div>
+            </fieldset>
+            <div class="field-pair">
+              <div class="field">
+                <label for="planner-occasion" data-i18n="planner.occasion">Povod</label>
+                <select id="planner-occasion" data-render="occasions"></select>
+              </div>
+              <div class="field">
+                <label for="planner-date" data-i18n="planner.date">Datum događaja</label>
+                <input type="date" id="planner-date">
+              </div>
+            </div>
+          </form>
+
+          <figure class="planner-preview">
+            <div class="skin arch" id="planner-skin">
+              <div class="skin-layer skin-before"></div>
+              <div class="skin-layer skin-after"></div>
+              <span class="skin-divider" aria-hidden="true"></span>
+              <span class="skin-label skin-label-before" data-i18n="planner.before">Sada</span>
+              <span class="skin-label skin-label-after" data-i18n="planner.after">Posle</span>
+              <input type="range" id="planner-split" min="0" max="100" value="50" data-i18n-label="planner.after" aria-label="Posle">
+            </div>
+            <figcaption data-i18n="planner.approx"></figcaption>
+          </figure>
+
+          <div class="planner-plan" aria-live="polite">
+            <h3 data-i18n="planner.plan">Tvoj plan</h3>
+            <p class="plan-book" id="plan-book"></p>
+            <ol class="timeline" id="plan-steps"></ol>
+            <p class="plan-hint" id="plan-hint" hidden></p>
+            <div class="plan-actions">
+              <a class="btn" id="plan-whatsapp" href="#" target="_blank" rel="noopener" data-i18n="planner.whatsapp">Pošalji na WhatsApp</a>
+              <button type="button" class="link link-button" id="plan-copy" data-i18n="planner.copy">Kopiraj poruku</button>
+            </div>
+            <p class="plan-status" id="plan-status" role="status"></p>
+            <p class="plan-note" data-i18n="planner.note"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="prices" id="cenovnik" aria-labelledby="prices-title">
       <div class="wrap">
         <div class="menu-card">
@@ -116,6 +197,62 @@
       </div>
     </section>
 
+    <section class="voucher" id="vaucer" aria-labelledby="voucher-title" data-render="voucher-section">
+      <div class="wrap voucher-inner">
+        <div class="voucher-copy">
+          <h2 id="voucher-title" class="section-title" data-i18n="voucher.title">Poklon vaučer</h2>
+          <p class="voucher-lede" data-i18n="voucher.lede"></p>
+          <form class="voucher-form" id="voucher-form" novalidate>
+            <div class="field-pair">
+              <div class="field">
+                <label for="voucher-to" data-i18n="voucher.to">Za koga</label>
+                <input type="text" id="voucher-to" maxlength="28" autocomplete="off">
+              </div>
+              <div class="field">
+                <label for="voucher-from" data-i18n="voucher.from">Od koga</label>
+                <input type="text" id="voucher-from" maxlength="28" autocomplete="off">
+              </div>
+            </div>
+            <div class="field">
+              <label for="voucher-item" data-i18n="voucher.item">Tretman</label>
+              <select id="voucher-item" data-render="voucher-items"></select>
+            </div>
+            <div class="field">
+              <label for="voucher-note" data-i18n="voucher.note">Poruka</label>
+              <input type="text" id="voucher-note" maxlength="60" autocomplete="off">
+            </div>
+          </form>
+        </div>
+
+        <div class="voucher-side">
+          <div class="voucher-card" id="voucher-card">
+            <div class="vc-arch" aria-hidden="true"><span>GC</span></div>
+            <div class="vc-body">
+              <p class="vc-brand">Gold Club</p>
+              <p class="vc-kind" data-i18n="voucher.card">Poklon vaučer</p>
+              <p class="vc-item" id="vc-item"></p>
+              <p class="vc-price" id="vc-price"></p>
+              <p class="vc-names" id="vc-names"></p>
+              <p class="vc-note" id="vc-note"></p>
+            </div>
+          </div>
+          <div class="plan-actions">
+            <a class="btn" id="voucher-whatsapp" href="#" target="_blank" rel="noopener" data-i18n="voucher.order">Naruči vaučer</a>
+            <button type="button" class="link link-button" id="voucher-copy" data-i18n="planner.copy">Kopiraj poruku</button>
+          </div>
+          <p class="plan-status" id="voucher-status" role="status"></p>
+          <p class="plan-note" data-i18n="voucher.fine"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq" id="pitanja" aria-labelledby="faq-title">
+      <div class="wrap faq-inner">
+        <h2 id="faq-title" class="section-title" data-i18n="faq.title">Česta pitanja</h2>
+        <div class="faq-list" data-render="faq"></div>
+      </div>
+    </section>
+
     <section class="contact" id="lokacija" aria-labelledby="contact-title">
       <div class="wrap contact-inner">
         <div class="contact-copy">
@@ -123,8 +260,12 @@
           <dl class="contact-list" data-render="contact"></dl>
           <div class="channels" data-render="channels"></div>
         </div>
-        <div class="map">
-          <iframe data-render="map" title="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="map" id="map">
+          <div class="map-placeholder">
+            <p class="map-address">Trgovačka 7a<br><span>Banovo brdo</span></p>
+            <button type="button" class="btn btn-small" id="map-load" data-i18n="contact.showMap">Prikaži mapu</button>
+            <small data-i18n="contact.mapNote"></small>
+          </div>
         </div>
       </div>
     </section>
@@ -140,8 +281,22 @@
   </main>
 
   <footer class="site-footer">
-    <div class="wrap footer-inner">
-      <span class="brand">Gold Club</span>
+    <div class="wrap footer-grid">
+      <div>
+        <span class="brand">Gold Club</span>
+        <p class="footer-tag">The place where hot girls get even hotter.</p>
+      </div>
+      <div>
+        <p class="footer-label" data-i18n="footer.visit">Adresa</p>
+        <p>Trgovačka 7a, Banovo brdo<br><a href="tel:+38162596994">+381 62 596 994</a></p>
+      </div>
+      <div>
+        <p class="footer-label" data-i18n="footer.follow">Prati nas</p>
+        <p><a href="https://www.instagram.com/salongoldclub" target="_blank" rel="noopener">@salongoldclub</a><br>
+           <a href="https://www.instagram.com/spraytangoldclub" target="_blank" rel="noopener">@spraytangoldclub</a></p>
+      </div>
+    </div>
+    <div class="wrap footer-base">
       <small>© <span data-year></span> Gold Club. <span data-i18n="footer.rights">Sva prava zadržana.</span></small>
     </div>
   </footer>

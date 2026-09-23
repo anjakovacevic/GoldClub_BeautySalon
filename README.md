@@ -70,6 +70,10 @@ Everything editable is in **`js/content.js`**:
   and the carousel loops in both directions. Remove every review to hide the section.
 - `contact`: phone, email, Instagram, address, map, opening hours (`hours: null` shows "Po zakazivanju"),
   and `bookingUrl`, the Sredi me online booking page behind "Zakaži online" (`null` hides that button).
+- `tanPlanner`: skin tones, shades and occasions for the "Tan planer". `closedDays` lists the
+  days the salon is closed (currently Sunday, **to be confirmed**) so the planner never suggests them.
+- `voucher.show`: set to `false` to hide the gift voucher builder. Its treatments and prices come from `services`.
+- `faq`: questions and answers, in both languages.
 - `hiring.show`: set to `false` to hide the "Tražimo saradnice" band.
 - `ui`: all other interface text, in both languages.
 

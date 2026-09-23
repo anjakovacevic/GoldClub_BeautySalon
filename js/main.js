@@ -299,9 +299,59 @@
       });
     },
 
-    map: function (frame) {
-      if (!frame.src) frame.src = GC.contact.mapsEmbed;
-      frame.title = t("contact.mapTitle");
+    tones: function (root) {
+      GC.tanPlanner.tones.forEach(function (tone) {
+        var input = el("input", { type: "radio", name: "tone", id: "tone-" + tone.id, value: tone.id });
+        input.checked = tone.id === planner.tone;
+        input.addEventListener("change", function () { planner.tone = tone.id; updatePlanner(); });
+        var swatch = el("span", { class: "tone-dot", "aria-hidden": "true" });
+        swatch.style.background = tone.hex;
+        root.appendChild(el("label", { class: "tone", for: "tone-" + tone.id }, [
+          input, swatch, el("span", { class: "tone-name", text: tr(tone.name) }),
+        ]));
+      });
+    },
+
+    levels: function (root) {
+      GC.tanPlanner.levels.forEach(function (lv) {
+        var input = el("input", { type: "radio", name: "level", id: "level-" + lv.id, value: lv.id });
+        input.checked = lv.id === planner.level;
+        input.addEventListener("change", function () { planner.level = lv.id; updatePlanner(); });
+        root.appendChild(el("label", { class: "level", for: "level-" + lv.id }, [
+          input,
+          el("span", { class: "level-name", text: tr(lv.name) }),
+          el("span", { class: "level-desc", text: tr(lv.desc) }),
+        ]));
+      });
+    },
+
+    occasions: function (select) {
+      GC.tanPlanner.occasions.forEach(function (o) {
+        var opt = el("option", { value: o.id, text: tr(o.name) });
+        opt.selected = o.id === planner.occasion;
+        select.appendChild(opt);
+      });
+    },
+
+    "voucher-section": function (section) {
+      section.hidden = !(GC.voucher && GC.voucher.show);
+    },
+
+    "voucher-items": function (select) {
+      voucherItems().forEach(function (it) {
+        var opt = el("option", { value: it.key, text: it.label + " · " + formatPrice(it.price) });
+        opt.selected = it.key === voucher.item;
+        select.appendChild(opt);
+      });
+    },
+
+    faq: function (root) {
+      (GC.faq || []).forEach(function (f) {
+        root.appendChild(el("details", null, [
+          el("summary", { text: tr(f.q) }),
+          el("p", { text: tr(f.a) }),
+        ]));
+      });
     },
 
     hiring: function (section) {
@@ -338,7 +388,7 @@
       var fn = renderers[node.getAttribute("data-render")];
       if (!fn) return;
       // Containers get rebuilt; single elements (iframe, link, section) are updated in place.
-      if (["map", "hiring", "hiring-link"].indexOf(node.getAttribute("data-render")) === -1) {
+      if (["hiring", "hiring-link", "voucher-section"].indexOf(node.getAttribute("data-render")) === -1) {
         node.textContent = "";
       }
       fn(node);
@@ -347,6 +397,10 @@
     document.querySelectorAll("[data-lang]").forEach(function (b) {
       b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === lang));
     });
+
+    fillVoucherDemo();
+    updatePlanner();
+    updateVoucher();
   }
 
   // Language toggle
@@ -395,7 +449,248 @@
     if (reviews.track) placeReviews(false);
   });
 
-  document.querySelector("[data-year]").textContent = new Date().getFullYear();
+  /* ---------- Shared helpers for the planner and the voucher ---------- */
+
+  function fill(template, values) {
+    return template.replace(/\{(\w+)\}/g, function (m, k) { return values[k] != null ? values[k] : m; });
+  }
+
+  function whatsappHref(text) {
+    return "https://wa.me/" + GC.contact.phoneRaw.replace("+", "") + "?text=" + encodeURIComponent(text);
+  }
+
+  // Copy must run inside the click handler. If the clipboard is refused,
+  // show the message so it can be selected by hand.
+  function bindCopy(buttonId, statusId, getText) {
+    var button = document.getElementById(buttonId);
+    var status = document.getElementById(statusId);
+    if (!button) return;
+    button.addEventListener("click", function () {
+      var text = getText();
+      function manual() { status.textContent = text; status.classList.add("is-manual"); }
+      if (!navigator.clipboard) return manual();
+      navigator.clipboard.writeText(text).then(function () {
+        status.classList.remove("is-manual");
+        status.textContent = t("planner.copied");
+      }, manual);
+    });
+  }
+
+  function byId(list, id) {
+    for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
+    return list[0];
+  }
+
+  /* ---------- Tan planner ---------- */
+
+  var DAY = 864e5;
+  function today() { var d = new Date(); d.setHours(0, 0, 0, 0); return d; }
+  function addDays(d, n) { var x = new Date(d); x.setDate(x.getDate() + n); return x; }
+  function toISO(d) {
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
+  function fromISO(s) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || "");
+    return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null;
+  }
+  function fmtDate(d, long) {
+    var locale = lang === "sr" ? "sr-Latn-RS" : "en-GB";
+    var opts = long ? { weekday: "long", day: "numeric", month: "long" } : { weekday: "short", day: "numeric", month: "short" };
+    return d.toLocaleDateString(locale, opts);
+  }
+
+  var planner = { tone: "medium", level: "bronze", occasion: "wedding", date: toISO(addDays(today(), 5)), message: "" };
+
+  function hexToRgb(h) {
+    var n = parseInt(h.slice(1), 16);
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  }
+  function mix(a, b, w) {
+    return a.map(function (v, i) { return Math.round(v + (b[i] - v) * w); });
+  }
+  function rgb(c) { return "rgb(" + c.join(",") + ")"; }
+  function skinGradient(c) {
+    return "radial-gradient(120% 90% at 32% 22%, " + rgb(mix(c, [255, 244, 232], 0.28)) + " 0%, " +
+      rgb(c) + " 48%, " + rgb(mix(c, [40, 22, 12], 0.22)) + " 100%)";
+  }
+
+  var BRONZE = [110, 62, 34];
+
+  function updatePlanner() {
+    var skin = document.getElementById("planner-skin");
+    if (!skin || !GC.tanPlanner) return;
+    var tp = GC.tanPlanner;
+    var tone = byId(tp.tones, planner.tone);
+    var level = byId(tp.levels, planner.level);
+    var occasion = byId(tp.occasions, planner.occasion);
+
+    var base = hexToRgb(tone.hex);
+    skin.querySelector(".skin-before").style.background = skinGradient(base);
+    skin.querySelector(".skin-after").style.background = skinGradient(mix(base, BRONZE, level.depth));
+
+    var dateInput = document.getElementById("planner-date");
+    if (dateInput.value !== planner.date) dateInput.value = planner.date;
+    dateInput.min = toISO(today());
+
+    var event = fromISO(planner.date) || addDays(today(), 5);
+    var lead = Math.round((event - today()) / DAY);
+    var asap = lead < 2;
+    var appt = asap ? today() : addDays(event, -1);
+    // Move back past closed days (e.g. Sunday), but never before today.
+    var closed = tp.closedDays || [];
+    while (!asap && closed.indexOf(appt.getDay()) !== -1 && appt > today()) appt = addDays(appt, -1);
+
+    document.getElementById("plan-book").innerHTML = "";
+    document.getElementById("plan-book").appendChild(
+      asap
+        ? el("span", { text: t("planner.asap") })
+        : el("span", null, [
+            document.createTextNode(t("planner.book") + " "),
+            el("strong", { text: fmtDate(appt, true) }),
+          ])
+    );
+
+    var steps = [];
+    if (!asap) steps.push([fmtDate(addDays(appt, -1)), t("planner.step.prep")]);
+    steps.push([fmtDate(appt), t("planner.step.tan")]);
+    steps.push([fmtDate(appt), t("planner.step.shower")]);
+    if (!asap || lead >= 1) steps.push([fmtDate(event), t("planner.step.event"), true]);
+    steps.push([fmtDate(addDays(appt, 7)) + " – " + fmtDate(addDays(appt, 10)), t("planner.step.care")]);
+
+    var list = document.getElementById("plan-steps");
+    list.textContent = "";
+    steps.forEach(function (s) {
+      list.appendChild(el("li", { class: s[2] ? "is-event" : "" }, [
+        el("span", { class: "step-date", text: s[0] }),
+        el("span", { class: "step-text", text: s[1] }),
+      ]));
+    });
+
+    var hint = document.getElementById("plan-hint");
+    var fair = planner.tone === "porcelain" || planner.tone === "light";
+    hint.hidden = !(fair && planner.level === "deep-glow");
+    hint.textContent = t("planner.soft");
+
+    planner.message = fill(t("planner.msg"), {
+      level: tr(level.name),
+      tone: tr(tone.name).toLowerCase(),
+      occasion: tr(occasion.name).toLowerCase(),
+      event: fmtDate(event),
+      date: fmtDate(appt),
+    });
+    document.getElementById("plan-whatsapp").href = whatsappHref(planner.message);
+    document.getElementById("plan-status").textContent = "";
+  }
+
+  (function bindPlanner() {
+    var date = document.getElementById("planner-date");
+    if (!date) return;
+    date.addEventListener("change", function () {
+      if (fromISO(date.value)) planner.date = date.value;
+      updatePlanner();
+    });
+    document.getElementById("planner-occasion").addEventListener("change", function (e) {
+      planner.occasion = e.target.value;
+      updatePlanner();
+    });
+    var split = document.getElementById("planner-split");
+    var skin = document.getElementById("planner-skin");
+    function setSplit() { skin.style.setProperty("--split", split.value + "%"); }
+    split.addEventListener("input", setSplit);
+    setSplit();
+    bindCopy("plan-copy", "plan-status", function () { return planner.message; });
+  })();
+
+  /* ---------- Gift voucher ---------- */
+
+  function voucherItems() {
+    var out = [];
+    GC.services.forEach(function (s) {
+      s.prices.forEach(function (p, i) {
+        if (p.price == null) return;
+        var name = tr(p.name), service = tr(s.name);
+        out.push({ key: s.id + ":" + i, label: name === service ? name : service + ": " + name, short: name, price: p.price });
+      });
+    });
+    return out;
+  }
+
+  var voucher = { item: "lash-brow:2", edited: false, message: "" };
+  var voucherFields = ["voucher-to", "voucher-from", "voucher-note"];
+
+  // Until the visitor types, the card shows an example in the current language.
+  function fillVoucherDemo() {
+    if (voucher.edited || !document.getElementById("voucher-to")) return;
+    document.getElementById("voucher-to").value = t("voucher.demoTo");
+    document.getElementById("voucher-from").value = t("voucher.demoFrom");
+    document.getElementById("voucher-note").value = t("voucher.demoNote");
+  }
+
+  function updateVoucher() {
+    var card = document.getElementById("voucher-card");
+    if (!card) return;
+    var items = voucherItems();
+    var item = items.filter(function (i) { return i.key === voucher.item; })[0] || items[0];
+    var to = document.getElementById("voucher-to").value.trim();
+    var from = document.getElementById("voucher-from").value.trim();
+    var note = document.getElementById("voucher-note").value.trim();
+
+    document.getElementById("vc-item").textContent = item.short;
+    document.getElementById("vc-price").textContent = formatPrice(item.price);
+    document.getElementById("vc-names").textContent =
+      [to && t("voucher.forLabel") + " " + to, from && t("voucher.fromLabel") + " " + from].filter(Boolean).join("  ·  ");
+    var vcNote = document.getElementById("vc-note");
+    vcNote.textContent = note;
+    vcNote.hidden = !note;
+
+    voucher.message = fill(t("voucher.msg"), {
+      item: item.label,
+      price: formatPrice(item.price),
+      to: to || "…",
+      from: from || "…",
+      note: note ? (lang === "sr" ? " Poruka: „" + note + "“." : " Message: “" + note + "”.") : "",
+    });
+    document.getElementById("voucher-whatsapp").href = whatsappHref(voucher.message);
+    document.getElementById("voucher-status").textContent = "";
+  }
+
+  (function bindVoucher() {
+    if (!document.getElementById("voucher-form")) return;
+    voucherFields.forEach(function (id) {
+      document.getElementById(id).addEventListener("input", function () {
+        voucher.edited = true;
+        updateVoucher();
+      });
+    });
+    document.getElementById("voucher-item").addEventListener("change", function (e) {
+      voucher.item = e.target.value;
+      updateVoucher();
+    });
+    document.getElementById("voucher-form").addEventListener("submit", function (e) { e.preventDefault(); });
+    document.getElementById("planner-form").addEventListener("submit", function (e) { e.preventDefault(); });
+    bindCopy("voucher-copy", "voucher-status", function () { return voucher.message; });
+  })();
+
+  /* ---------- Map: load Google only on request ---------- */
+
+  (function bindMap() {
+    var button = document.getElementById("map-load");
+    if (!button) return;
+    button.addEventListener("click", function () {
+      var frame = el("iframe", {
+        src: GC.contact.mapsEmbed,
+        title: t("contact.mapTitle"),
+        loading: "lazy",
+        referrerpolicy: "no-referrer-when-downgrade",
+      });
+      var map = document.getElementById("map");
+      map.textContent = "";
+      map.appendChild(frame);
+      map.classList.add("is-loaded");
+    });
+  })();
+
+  document.querySelectorAll("[data-year]").forEach(function (n) { n.textContent = new Date().getFullYear(); });
 
   render();
   document.documentElement.classList.add("is-ready");

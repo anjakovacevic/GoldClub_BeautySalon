@@ -156,8 +156,146 @@ window.GC = {
     },
   },
 
+  // "Tan planer": pick a skin tone, a depth and the event date; the page suggests
+  // when to book and what to do before and after. General guidance only.
+  tanPlanner: {
+    // Days the salon doesn't work (0 = Sunday … 6 = Saturday). The planner never
+    // suggests booking on these. ASSUMPTION: closed on Sundays; confirm with the salon.
+    closedDays: [0],
+    tones: [
+      { id: "porcelain", hex: "#F2DCCB", name: { sr: "Porcelan", en: "Porcelain" } },
+      { id: "light", hex: "#E8C3A5", name: { sr: "Svetla", en: "Light" } },
+      { id: "medium", hex: "#D3A07C", name: { sr: "Srednja", en: "Medium" } },
+      { id: "olive", hex: "#B88560", name: { sr: "Maslinasta", en: "Olive" } },
+      { id: "deep", hex: "#8C5D40", name: { sr: "Tamnija", en: "Deep" } },
+    ],
+    // depth = how far the preview moves the tone toward bronze (0–1)
+    levels: [
+      { id: "sunkissed", depth: 0.2, name: { sr: "Sunkissed", en: "Sunkissed" },
+        desc: { sr: "Kao posle vikenda na moru.", en: "Like a weekend at the seaside." } },
+      { id: "bronze", depth: 0.34, name: { sr: "Bronze", en: "Bronze" },
+        desc: { sr: "Kao posle dve nedelje leta.", en: "Like two weeks of summer." } },
+      { id: "deep-glow", depth: 0.48, name: { sr: "Deep glow", en: "Deep glow" },
+        desc: { sr: "Za scenu, fotke i veliko veče.", en: "For the stage, photos and big nights." } },
+    ],
+    occasions: [
+      { id: "wedding", name: { sr: "Venčanje ili proslava", en: "Wedding or party" } },
+      { id: "holiday", name: { sr: "Odmor", en: "Holiday" } },
+      { id: "photo", name: { sr: "Fotografisanje", en: "Photo shoot" } },
+      { id: "everyday", name: { sr: "Onako, za sebe", en: "Just for me" } },
+    ],
+  },
+
+  // Gift voucher builder. Services and prices come from `services` above.
+  voucher: { show: true },
+
+  faq: [
+    {
+      q: { sr: "Koliko traje spray tan?", en: "How long does a spray tan last?" },
+      a: {
+        sr: "Obično 7 do 10 dana. Najduže traje ako svaki dan hidriraš kožu i izbegavaš piling i duge tople kupke.",
+        en: "Usually 7 to 10 days. It lasts longest if you moisturise daily and skip scrubs and long hot baths.",
+      },
+    },
+    {
+      q: { sr: "Da li će mi ten biti narandžast?", en: "Will I turn orange?" },
+      a: {
+        sr: "Ne. Nijansu biramo prema tvom tenu i podtonu, a koristimo formule koje daju prirodnu, bronzanu boju.",
+        en: "No. We match the shade to your skin tone and undertone, and use formulas that develop a natural bronze colour.",
+      },
+    },
+    {
+      q: { sr: "Kako da se pripremim?", en: "How should I prepare?" },
+      a: {
+        sr: "Dan ranije uradi piling i brijanje ili depilaciju. Na tretman dođi bez kreme, dezodoransa i šminke, u širokoj tamnoj odeći.",
+        en: "Exfoliate and shave or wax the day before. Come without lotion, deodorant or make-up, in loose dark clothes.",
+      },
+    },
+    {
+      q: { sr: "Kada smem da se istuširam?", en: "When can I shower?" },
+      a: {
+        sr: "Prvo tuširanje posle otprilike 8 sati, mlakom vodom i bez gela. Tačno vreme zavisi od formule, pa ti to kažemo na tretmanu.",
+        en: "Your first shower is after about 8 hours, lukewarm and without shower gel. The exact time depends on the formula; we'll tell you on the day.",
+      },
+    },
+    {
+      q: { sr: "Koliko traje lash lift?", en: "How long does a lash lift last?" },
+      a: {
+        sr: "Efekat traje nekoliko nedelja, dok trepavice prirodno ne izrastu. Prva 24 sata ne kvasi trepavice.",
+        en: "The lift lasts several weeks, until your lashes naturally grow out. Keep them dry for the first 24 hours.",
+      },
+    },
+    {
+      q: { sr: "Dolazite li na adresu?", en: "Do you come to my place?" },
+      a: {
+        sr: "Da, za spray tan. Idealno za pripreme pred venčanje ili devojačko veče, kada se sređuje više devojaka.",
+        en: "Yes, for spray tans. Perfect before a wedding or a hen party, when several of you are getting ready.",
+      },
+    },
+  ],
+
   // Interface text for both languages.
   ui: {
+    "nav.planner": { sr: "Tan planer", en: "Tan planner" },
+    "planner.eyebrow": { sr: "Spray tan", en: "Spray tan" },
+    "planner.title": { sr: "Isplaniraj svoj ten", en: "Plan your tan" },
+    "planner.lede": {
+      sr: "Izaberi ten, nijansu i datum. Reći ćemo ti kada da zakažeš i šta da radiš pre i posle.",
+      en: "Pick your skin tone, a shade and the date. We'll tell you when to book and what to do before and after.",
+    },
+    "planner.tone": { sr: "Tvoj ten", en: "Your skin tone" },
+    "planner.level": { sr: "Željena nijansa", en: "Shade" },
+    "planner.occasion": { sr: "Povod", en: "Occasion" },
+    "planner.date": { sr: "Datum događaja", en: "Event date" },
+    "planner.before": { sr: "Sada", en: "Now" },
+    "planner.after": { sr: "Posle", en: "After" },
+    "planner.approx": { sr: "Približan prikaz. Tačnu nijansu biramo zajedno u salonu.", en: "An approximation. We choose the exact shade together at the salon." },
+    "planner.soft": {
+      sr: "Za prvi tretman na svetlom tenu predlažemo Bronze: izgleda prirodnije, a sledeći put možeš tamnije.",
+      en: "For a first tan on fair skin we suggest Bronze: it looks more natural, and you can go deeper next time.",
+    },
+    "planner.plan": { sr: "Tvoj plan", en: "Your plan" },
+    "planner.book": { sr: "Zakaži za", en: "Book for" },
+    "planner.asap": { sr: "Događaj je vrlo blizu, javi nam se odmah pa ćemo naći termin.", en: "Your event is very close. Message us now and we'll find a slot." },
+    "planner.step.prep": { sr: "Piling celog tela, brijanje ili depilacija.", en: "Full-body scrub, shave or wax." },
+    "planner.step.tan": { sr: "Tretman. Dođi bez kreme, dezodoransa i šminke, u širokoj tamnoj odeći.", en: "Your tan. Come without lotion, deodorant or make-up, in loose dark clothes." },
+    "planner.step.shower": { sr: "Uveče prvo tuširanje, mlakom vodom i bez gela.", en: "That evening, your first shower: lukewarm, no shower gel." },
+    "planner.step.event": { sr: "Ten je razvijen i ujednačen.", en: "Your tan is fully developed and even." },
+    "planner.step.care": { sr: "Hidriraj kožu svako jutro i veče, pa ten traje 7–10 dana.", en: "Moisturise morning and night and it lasts 7–10 days." },
+    "planner.whatsapp": { sr: "Pošalji na WhatsApp", en: "Send on WhatsApp" },
+    "planner.copy": { sr: "Kopiraj poruku", en: "Copy message" },
+    "planner.copied": { sr: "Kopirano. Nalepi u Viber ili Instagram.", en: "Copied. Paste it into Viber or Instagram." },
+    "planner.note": { sr: "Opšta pravila. Tačna uputstva za tvoju formulu dobijaš na tretmanu.", en: "General guidance. You'll get exact instructions for your formula on the day." },
+    "planner.msg": {
+      sr: "Zdravo! Želela bih spray tan, nijansa {level}, ten {tone}. Povod: {occasion}, {event}. Da li imate termin {date}? Hvala!",
+      en: "Hi! I'd like a spray tan, {level} shade, {tone} skin. Occasion: {occasion}, {event}. Do you have a slot on {date}? Thank you!",
+    },
+    "voucher.title": { sr: "Poklon vaučer", en: "Gift voucher" },
+    "voucher.lede": {
+      sr: "Rođendan, godišnjica ili samo „zaslužila si“. Sastavi vaučer, a mi ga pripremamo za preuzimanje u salonu.",
+      en: "A birthday, an anniversary or just “you deserve it”. Put the voucher together and we'll have it ready at the salon.",
+    },
+    "voucher.to": { sr: "Za koga", en: "For" },
+    "voucher.from": { sr: "Od koga", en: "From" },
+    "voucher.item": { sr: "Tretman", en: "Treatment" },
+    "voucher.note": { sr: "Poruka (nije obavezno)", en: "Message (optional)" },
+    "voucher.card": { sr: "Poklon vaučer", en: "Gift voucher" },
+    "voucher.forLabel": { sr: "za", en: "for" },
+    "voucher.fromLabel": { sr: "od", en: "from" },
+    "voucher.order": { sr: "Naruči vaučer", en: "Order the voucher" },
+    "voucher.fine": { sr: "Broj vaučera i rok važenja dodeljuje salon.", en: "The salon assigns the voucher number and expiry date." },
+    "voucher.msg": {
+      sr: "Zdravo! Želela bih poklon vaučer: {item} ({price}), za {to}, od {from}.{note} Kako da ga platim i preuzmem?",
+      en: "Hi! I'd like a gift voucher: {item} ({price}), for {to}, from {from}.{note} How do I pay and pick it up?",
+    },
+    "voucher.demoTo": { sr: "Mila", en: "Mila" },
+    "voucher.demoFrom": { sr: "Ana", en: "Ana" },
+    "voucher.demoNote": { sr: "Srećan rođendan, zaslužila si!", en: "Happy birthday, you deserve it!" },
+    "faq.title": { sr: "Česta pitanja", en: "Questions" },
+    "contact.showMap": { sr: "Prikaži mapu", en: "Show map" },
+    "contact.mapNote": { sr: "Mapa se učitava sa Google-a tek kada klikneš.", en: "The map loads from Google only when you click." },
+    "footer.visit": { sr: "Adresa", en: "Address" },
+    "footer.follow": { sr: "Prati nas", en: "Follow us" },
     "nav.services": { sr: "Usluge", en: "Treatments" },
     "nav.prices": { sr: "Cenovnik", en: "Prices" },
     "nav.salon": { sr: "Salon", en: "Salon" },
