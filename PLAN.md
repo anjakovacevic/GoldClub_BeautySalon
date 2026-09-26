@@ -6,10 +6,10 @@
 - Tagline in their own material: "The place where hot girls get even hotter"
 - Current services: Spray tan, Lash & Brow lift, Massage (prices in RSD from the "Cenovnik" post)
 - Visual language: thin high-contrast serif, arched / circular frames (nail-bar arch shelf,
-  circle crops in posts), mocha brown, sand, blush.
+  circle crops in posts), mocha brown, sand, latte beige.
 
 ## Stack
-Plain static site: three pages (`index.html`, `spray-tan.html`, `cenovnik.html`) sharing
+Plain static site: a handful of pages (home, one per treatment, `cenovnik.html`, `kontakt.html`) sharing
 `css/` + `js/`. No build step, no database, no framework.
 Runs locally by opening `index.html` or `npx serve`, and deploys as-is to Netlify /
 Cloudflare Pages / any host once the domain is bought.
@@ -30,7 +30,8 @@ Serbian (Latin) by default, English via a toggle in the header. Choice is rememb
 |-----------|-----------|-----|
 | Sateen    | `#F5ECE2` | page background (cream) |
 | Sand      | `#E7D5BF` | alternate surfaces, business-card tone |
-| Blush     | `#E4C3B8` | dusty rose, price menu + booking band |
+| Latte     | `#E0CEB6` | deeper beige: price menu, voucher, booking band |
+| Latte soft| `#EDE1D0` | light beige: map placeholder, link cards, hints |
 | Gold      | `#B38B4D` | hairlines, arch outline, small accents only |
 | Gold deep | `#86652F` | gold text that must pass contrast |
 | Mocha     | `#3B281D` | ink / text (their brown, not black) |
@@ -39,30 +40,34 @@ Type: **Bodoni Moda** (display, fashion-editorial, has č ć š ž đ) + **Jost*
 
 ## Layout
 ```
-[ Gold Club   Usluge  Spray tan vodič  Cenovnik  Lokacija   SR/EN  (Zakaži) ]
+[ Gold Club   Tretmani  Cenovnik  Lokacija   SR/EN  (Zakaži) ]
 
-index.html (home: the essentials)
+index.html (home: what, trust, book; everything else is one click deeper)
 
   GOLD                      ╭────────╮
   CLUB  (huge Bodoni)       │ arch   │
   The place where hot       │ photo  │
   girls get even hotter.    │        │
-  (Zakaži termin)           ╰────────╯
-------------------------------------------------------------------
-  Service rows, alternating arch photo left/right, benefits list
-------------------------------------------------------------------
-  Two link cards → Spray tan vodič, Cenovnik & vaučeri
-------------------------------------------------------------------
-  Salon — nail-bar photo + Banovo brdo copy
-------------------------------------------------------------------
-  Lokacija — address, online booking (Sredi me), phone, Viber/WhatsApp/IG, map on click
-------------------------------------------------------------------
-  Utisci — reviews carousel (not in the nav)
+  (Zakaži termin)  Pogledaj tretmane
+------------------------------------------------------------------ sand
+  Tretmani                                      Ceo cenovnik →
+  ╭──╮ ╭──╮ ╭──╮   one arch card per service in content.js;
+  │  │ │  │ │  │   wraps on desktop, sideways scroll on phones
+  name · one line · od X RSD → treatment page
+------------------------------------------------------------------ cream
+  Salon — nail-bar photo + copy + "Kako do nas →"
+------------------------------------------------------------------ latte
+  Booking band: foil arch, "Vidimo se u salonu?", address · hours,
+  (Zakaži termin) + phone, "Poklanjaš nekome? → vaučer"
+------------------------------------------------------------------ cream
+  Utisci — reviews carousel, last before the footer (reviews.show)
 
-spray-tan.html   Tan planner (tone, shade, date → plan) + FAQ
-cenovnik.html    Cenovnik (printed-menu card on blush, dotted leaders) + gift voucher builder
+spray-tan.html   Treatment, prices, tan planner + FAQ
+lash-brow-lift.html, masaza.html   Treatment, prices (+ process, FAQ)
+cenovnik.html    Cenovnik (printed-menu card on latte beige, dotted leaders) + gift voucher builder
+kontakt.html     Address, channels, map on click + "Tražimo saradnice" band
 ```
-Header, footer and booking dialog are repeated in each HTML file; change them in all three.
+Header, footer and booking dialog are repeated in each HTML file; change them in every page.
 Left-aligned text; the arch is the one bold, repeated motif (it's their own shelf shape).
 
 ## Principles

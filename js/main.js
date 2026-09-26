@@ -43,6 +43,14 @@
     return GC.services.filter(function (s) { return s.id === id; })[0] || GC.services[0];
   }
 
+  // "od 1.900 RSD", or "Cena na upit" when no price is set.
+  function fromPrice(s) {
+    var prices = s.prices.map(function (p) { return p.price; }).filter(function (p) { return p != null; });
+    return prices.length
+      ? t("services.from") + " " + formatPrice(Math.min.apply(null, prices))
+      : t("prices.onRequest");
+  }
+
   function priceList(s) {
     return el("ul", { class: "menu-items" }, s.prices.map(function (p) {
       return el("li", null, [
@@ -195,7 +203,7 @@
 
   var renderers = {
     reviews: function (root) {
-      var list = GC.reviews || [];
+      var list = (GC.reviews && GC.reviews.show && GC.reviews.list) || [];
       var section = root.closest("section");
       section.hidden = !list.length;
       if (!list.length) return;
@@ -233,30 +241,21 @@
     },
 
 
+    // Home page: one arch card per treatment. Any number of treatments fits;
+    // the grid wraps on wide screens and scrolls sideways on phones.
     services: function (root) {
-      GC.services.forEach(function (s, i) {
-        var prices = s.prices.map(function (p) { return p.price; }).filter(function (p) { return p != null; });
-        var from = prices.length
-          ? t("services.from") + " " + formatPrice(Math.min.apply(null, prices))
-          : t("prices.onRequest");
-
+      GC.services.forEach(function (s) {
         var img = el("img", { src: s.image, alt: tr(s.imageAlt), loading: "lazy" });
-        var points = el("ul", { class: "points" }, tr(s.points).map(function (p) {
-          return el("li", { text: p });
-        }));
+        if (s.imagePosition) img.style.objectPosition = s.imagePosition;
 
         root.appendChild(
-          el("article", { class: "service" + (i % 2 ? " service-flip" : ""), id: s.id }, [
-            el("figure", { class: "service-photo" }, [el("div", { class: "arch" }, [img])]),
-            el("div", { class: "service-copy" }, [
-              el("h3", { class: "service-name", text: tr(s.name) }),
-              el("p", { class: "service-intro", text: tr(s.intro) }),
-              points,
-              el("p", { class: "service-price" }, [
-                el("span", { text: from }),
-                s.page && el("a", { class: "link", href: s.page, text: t("services.more") }),
-                el("a", { class: "link", href: "cenovnik.html#price-" + s.id, text: t("services.seePrices") }),
-              ]),
+          el("a", { class: "service-card", id: s.id, href: s.page || "cenovnik.html#price-" + s.id }, [
+            el("div", { class: "arch" }, [img]),
+            el("h3", { class: "service-name", text: tr(s.name) }),
+            el("p", { class: "service-intro", text: tr(s.intro) }),
+            el("p", { class: "service-price" }, [
+              el("span", { text: fromPrice(s) }),
+              el("span", { class: "explore-more", text: s.page ? t("services.more") : t("services.seePrices") }),
             ]),
           ])
         );
@@ -332,6 +331,17 @@
       rows.forEach(function (r) {
         root.appendChild(el("div", null, [el("dt", { text: r[0] }), el("dd", null, [r[1]])]));
       });
+    },
+
+    // One line: address, area and opening hours.
+    visit: function (root) {
+      var c = GC.contact;
+      root.textContent = [c.address, tr(c.area), c.hours ? tr(c.hours) : t("contact.byAppointment")].join(" · ");
+    },
+
+    phone: function (a) {
+      a.href = "tel:" + GC.contact.phoneRaw;
+      a.textContent = GC.contact.phone;
     },
 
     channels: function (root) {
@@ -490,7 +500,7 @@
     b.addEventListener("click", function () {
       setMenu(false);
       if (typeof dialog.showModal === "function") dialog.showModal();
-      else location.href = document.getElementById("lokacija") ? "#lokacija" : "index.html#lokacija";
+      else location.href = document.getElementById("lokacija") ? "#lokacija" : "kontakt.html#lokacija";
     });
   });
   dialog.addEventListener("click", function (e) {
@@ -728,6 +738,67 @@
     document.getElementById("voucher-form").addEventListener("submit", function (e) { e.preventDefault(); });
     bindCopy("voucher-copy", "voucher-status", function () { return voucher.message; });
   })();
+
+  /* ---------- Phone number on computers and tablets ----------
+     Only phones can place a call or reliably open Viber (the viber:// link needs the
+     app installed, and without it the browser does nothing). Everywhere else, a click
+     on the number or on Viber copies the number and says so in a small popup. */
+
+  // Same test as the phone-only call icon in the CSS: narrow and touch.
+  var phoneQuery = window.matchMedia ? window.matchMedia("(max-width: 640px) and (pointer: coarse)") : null;
+
+  // A modal dialog makes the rest of the page inert, so helpers go inside it when open.
+  function topLayerParent() {
+    return document.querySelector("dialog[open]") || document.body;
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+    return new Promise(function (resolve, reject) {
+      var area = el("textarea", { readonly: "", "aria-hidden": "true", style: "position:fixed;top:0;left:0;opacity:0" });
+      area.value = text;
+      topLayerParent().appendChild(area);
+      area.select();
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) {}
+      area.remove();
+      if (ok) resolve(); else reject();
+    });
+  }
+
+  // Small message at the bottom of the screen. As a popover it sits in the top
+  // layer, so it also shows above the open booking dialog.
+  var toastEl = null, toastTimer = null;
+  function toast(message) {
+    if (!toastEl) {
+      toastEl = el("div", { class: "toast", role: "status", "aria-live": "polite" });
+      if ("popover" in toastEl) toastEl.setAttribute("popover", "manual");
+      document.body.appendChild(toastEl);
+    }
+    toastEl.textContent = message;
+    if (toastEl.showPopover) {
+      try { toastEl.hidePopover(); } catch (e) {}
+      toastEl.showPopover();
+    }
+    toastEl.classList.remove("is-visible");
+    void toastEl.offsetWidth; // restart the fade when clicked twice in a row
+    toastEl.classList.add("is-visible");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toastEl.classList.remove("is-visible"); }, 2600);
+  }
+
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="tel:"], a[href^="viber:"]');
+    if (!a || (phoneQuery && phoneQuery.matches)) return;
+    e.preventDefault();
+    var number = GC.contact.phone;
+    var viber = a.getAttribute("href").indexOf("viber:") === 0;
+    copyText(number).then(function () {
+      toast(fill(t(viber ? "copy.viber" : "copy.phone"), { n: number }));
+    }, function () {
+      toast(fill(t("copy.failed"), { n: number }));
+    });
+  });
 
   /* ---------- Map: load Google only on request ---------- */
 

@@ -36,11 +36,12 @@ const PAGES = [
   { file: "lash-brow-lift.html", service: "lash-brow", priority: "0.9" },
   { file: "masaza.html", service: "massage", priority: "0.8" },
   { file: "cenovnik.html", priority: "0.8" },
+  { file: "kontakt.html", priority: "0.7" },
 ];
 
 // Containers whose rendered content is worth indexing. Interactive parts (the
 // reviews carousel, the planner, contact buttons) are left to main.js.
-const BAKED = ["services", "prices", "faq", "contact", "roles", "service-detail", "other-services", "service-links", "process"];
+const BAKED = ["services", "prices", "faq", "contact", "roles", "service-detail", "other-services", "service-links", "process", "visit", "phone"];
 
 const GC = loadContent();
 const SITE = GC.site.url.replace(/\/?$/, "/");

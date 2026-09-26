@@ -3,6 +3,8 @@
  *
  * To add, remove or reorder a treatment, edit `services` below.
  * Each service needs an `id`, a photo, text in both languages and a price list.
+ * The home page cards, price list, voucher, footer links and "Ostali tretmani"
+ * all follow this list. See README → "Adding a treatment" for the full checklist.
  * A price of `null` shows "Cena na upit" / "Price on request".
  * Prices are in RSD. Write them as plain numbers (1900, not "1.900").
  */
@@ -30,6 +32,15 @@ window.GC = {
     openingHours: null,
   },
 
+  // Fields per treatment:
+  //   id             short unique name, used in links (cenovnik.html#price-<id>)
+  //   page           its own page (e.g. "sminka.html"); leave out until the page exists,
+  //                  and the home card links to its prices instead
+  //   image          photo, shown in an arch frame
+  //   imagePosition  optional focus point of the photo, e.g. "30% center"
+  //   imageAlt, name, intro, points   text in both languages
+  //   process        optional numbered steps (see lash-brow)
+  //   prices         list of { name, price }; price: null = "Cena na upit"
   services: [
     {
       id: "spray-tan",
@@ -62,6 +73,7 @@ window.GC = {
       id: "lash-brow",
       page: "lash-brow-lift.html",
       image: "assets/img/lash-brow.jpg",
+      imagePosition: "30% center",
       imageAlt: {
         sr: "Profil lica sa podignutim trepavicama i oblikovanim obrvama",
         en: "Profile of a face with lifted lashes and shaped brows",
@@ -144,57 +156,62 @@ window.GC = {
     },
   ],
 
-  // "What our clients say" carousel. PLACEHOLDERS: replace with real reviews
-  // (with the client's permission). Any number of reviews works; `rating` is 1–5.
-  reviews: [
-    {
-      name: "Jelena M.",
-      service: { sr: "Spray tan", en: "Spray tan" },
-      rating: 5,
-      text: {
-        sr: "Najprirodniji spray tan koji sam ikad imala. Boja je bila savršena za moj ten i trajala je duže od nedelju dana.",
-        en: "The most natural spray tan I've ever had. The shade was perfect for my skin and it lasted more than a week.",
+  // "What our clients say" carousel at the bottom of the home page. The list below is
+  // PLACEHOLDERS: replace it with real reviews (with the client's permission).
+  // `show: false` hides the section. Any number of reviews works; `rating` is 1–5.
+  reviews: {
+    show: true,
+    list: [
+      {
+        name: "Jelena M.",
+        service: { sr: "Spray tan", en: "Spray tan" },
+        rating: 5,
+        text: {
+          sr: "Najprirodniji spray tan koji sam ikad imala. Boja je bila savršena za moj ten i trajala je duže od nedelju dana.",
+          en: "The most natural spray tan I've ever had. The shade was perfect for my skin and it lasted more than a week.",
+        },
       },
-    },
-    {
-      name: "Milica P.",
-      service: { sr: "Lash & brow lift", en: "Lash & brow lift" },
-      rating: 5,
-      text: {
-        sr: "Više ne koristim maskaru. Trepavice podignute, obrve uredne, a ja svako jutro uštedim dvadeset minuta.",
-        en: "I've stopped using mascara. Lashes lifted, brows tidy, and I save twenty minutes every morning.",
+      {
+        name: "Milica P.",
+        service: { sr: "Lash & brow lift", en: "Lash & brow lift" },
+        rating: 5,
+        text: {
+          sr: "Više ne koristim maskaru. Trepavice podignute, obrve uredne, a ja svako jutro uštedim dvadeset minuta.",
+          en: "I've stopped using mascara. Lashes lifted, brows tidy, and I save twenty minutes every morning.",
+        },
       },
-    },
-    {
-      name: "Ana S.",
-      service: { sr: "Masaža", en: "Massage" },
-      rating: 5,
-      text: {
-        sr: "Sat vremena potpunog mira. Izašla sam laka kao pero i odmah zakazala sledeći termin.",
-        en: "An hour of total calm. I walked out light as a feather and booked my next visit on the spot.",
+      {
+        name: "Ana S.",
+        service: { sr: "Masaža", en: "Massage" },
+        rating: 5,
+        text: {
+          sr: "Sat vremena potpunog mira. Izašla sam laka kao pero i odmah zakazala sledeći termin.",
+          en: "An hour of total calm. I walked out light as a feather and booked my next visit on the spot.",
+        },
       },
-    },
-    {
-      name: "Teodora K.",
-      service: { sr: "Spray tan na adresi", en: "Spray tan at home" },
-      rating: 5,
-      text: {
-        sr: "Došle su kod mene pred venčanje i sredile nas pet devojaka. Profesionalno, brzo i uz mnogo smeha.",
-        en: "They came to my place before my wedding and did all five of us. Professional, quick and full of laughs.",
+      {
+        name: "Teodora K.",
+        service: { sr: "Spray tan na adresi", en: "Spray tan at home" },
+        rating: 5,
+        text: {
+          sr: "Došle su kod mene pred venčanje i sredile nas pet devojaka. Profesionalno, brzo i uz mnogo smeha.",
+          en: "They came to my place before my wedding and did all five of us. Professional, quick and full of laughs.",
+        },
       },
-    },
-    {
-      name: "Marija D.",
-      service: { sr: "Lash & brow lift + maska", en: "Lash & brow lift + mask" },
-      rating: 5,
-      text: {
-        sr: "Salon je predivan, a atmosfera toliko opuštena da sam skoro zaspala na tretmanu. Rezultat je odličan.",
-        en: "The salon is gorgeous and so relaxing I nearly fell asleep during the treatment. The result is lovely.",
+      {
+        name: "Marija D.",
+        service: { sr: "Lash & brow lift + maska", en: "Lash & brow lift + mask" },
+        rating: 5,
+        text: {
+          sr: "Salon je predivan, a atmosfera toliko opuštena da sam skoro zaspala na tretmanu. Rezultat je odličan.",
+          en: "The salon is gorgeous and so relaxing I nearly fell asleep during the treatment. The result is lovely.",
+        },
       },
-    },
-  ],
+    ],
+  },
 
-  // Shown as a small band near the bottom. Set `show: false` to hide it.
+  // "Tražimo saradnice": a band on kontakt.html plus a footer link and an FAQ entry.
+  // Set `show: false` to hide all of them.
   hiring: {
     show: true,
     roles: {
@@ -296,28 +313,13 @@ window.GC = {
         sr: "Da. Ako se baviš manikirom, šminkom, trepavicama, depilacijom ili trajnom šminkom i želiš da radiš u salonu, javi nam se.",
         en: "Yes. If you do manicures, make-up, lashes, waxing or permanent make-up and want to work from a salon, get in touch.",
       },
-      link: { href: "index.html#saradnja", text: { sr: "Tražimo saradnice", en: "We're hiring" } },
+      link: { href: "kontakt.html#saradnja", text: { sr: "Tražimo saradnice", en: "We're hiring" } },
     },
   ],
 
   // Interface text for both languages.
   ui: {
-    "nav.planner": { sr: "Spray tan vodič", en: "Spray tan guide" },
     "planner.eyebrow": { sr: "Spray tan vodič", en: "Spray tan guide" },
-    "explore.guide.eyebrow": { sr: "Spray tan vodič", en: "Spray tan guide" },
-    "explore.guide.title": { sr: "Isplaniraj svoj ten", en: "Plan your tan" },
-    "explore.guide.text": {
-      sr: "Izaberi ten i nijansu, unesi datum i dobij plan: kada da zakažeš, kako da se pripremiš i kako da ten potraje.",
-      en: "Pick your tone and shade, add the date and get a plan: when to book, how to prepare and how to make it last.",
-    },
-    "explore.guide.cta": { sr: "Otvori vodič", en: "Open the guide" },
-    "explore.prices.eyebrow": { sr: "Cenovnik", en: "Prices" },
-    "explore.prices.title": { sr: "Cene i poklon vaučeri", en: "Prices and gift vouchers" },
-    "explore.prices.text": {
-      sr: "Sve cene na jednom mestu, i poklon vaučer za bilo koji tretman koji sastaviš za minut.",
-      en: "Every price in one place, plus a gift voucher for any treatment, ready in a minute.",
-    },
-    "explore.prices.cta": { sr: "Pogledaj cenovnik", en: "See prices" },
     "planner.title": { sr: "Isplaniraj svoj ten", en: "Plan your tan" },
     "planner.lede": {
       sr: "Izaberi ten, nijansu i datum. Reći ćemo ti kada da zakažeš i šta da radiš pre i posle.",
@@ -376,9 +378,8 @@ window.GC = {
     "contact.mapNote": { sr: "Mapa se učitava sa Google-a tek kada klikneš.", en: "The map loads from Google only when you click." },
     "footer.visit": { sr: "Adresa", en: "Address" },
     "footer.follow": { sr: "Prati nas", en: "Follow us" },
-    "nav.services": { sr: "Usluge", en: "Treatments" },
+    "nav.services": { sr: "Tretmani", en: "Treatments" },
     "nav.prices": { sr: "Cenovnik", en: "Prices" },
-    "nav.salon": { sr: "Salon", en: "Salon" },
     "nav.contact": { sr: "Lokacija", en: "Location" },
     "nav.menu": { sr: "Meni", en: "Menu" },
     book: { sr: "Zakaži termin", en: "Book an appointment" },
@@ -388,11 +389,13 @@ window.GC = {
       en: "Spray tan, lash & brow lifts and massage at our salon on Banovo Brdo, Belgrade.",
     },
     "hero.prices": { sr: "Pogledaj cenovnik", en: "See prices" },
+    "hero.services": { sr: "Pogledaj tretmane", en: "See treatments" },
     "services.title": { sr: "Tretmani", en: "Treatments" },
     "services.from": { sr: "od", en: "from" },
     "services.seePrices": { sr: "Cene", en: "Prices" },
     "services.more": { sr: "Više o tretmanu", en: "More about it" },
     "services.others": { sr: "Ostali tretmani", en: "Other treatments" },
+    "services.allPrices": { sr: "Ceo cenovnik", en: "Full price list" },
     "footer.treatments": { sr: "Tretmani", en: "Treatments" },
     "treatment.eyebrow": { sr: "Banovo brdo · Beograd", en: "Banovo Brdo · Belgrade" },
     "treatment.prices": { sr: "Cene", en: "Prices" },
@@ -429,6 +432,7 @@ window.GC = {
       sr: "Gold Club je mali salon u kom se sve vrti oko tebe: topla svetla, mirna atmosfera i tretmani koje radimo polako i pažljivo. Dođi na spray tan pred proslavu, ili samo zato što je utorak.",
       en: "Gold Club is a small salon built around you: warm light, a calm room and treatments done slowly and carefully. Come in for a tan before a celebration, or just because it's Tuesday.",
     },
+    "salon.visit": { sr: "Kako do nas", en: "How to find us" },
     "salon.alt": {
       sr: "Radni sto u salonu Gold Club sa zlatnim detaljima i policom za lakove u obliku luka",
       en: "A workstation at Gold Club with gold details and an arched polish shelf",
@@ -439,6 +443,10 @@ window.GC = {
     "reviews.goTo": { sr: "Utisak", en: "Review" },
     "reviews.rating": { sr: "Ocena {n} od 5", en: "Rated {n} out of 5" },
     "contact.title": { sr: "Dođi kod nas", en: "Visit us" },
+    "contact.lede": {
+      sr: "Nalazimo se na Banovom brdu, u Trgovačkoj 7a. Radimo po zakazivanju, pa nam se javi pre dolaska.",
+      en: "You'll find us on Banovo Brdo, at Trgovačka 7a. We work by appointment, so get in touch before you come.",
+    },
     "contact.address": { sr: "Adresa", en: "Address" },
     "contact.phone": { sr: "Telefon", en: "Phone" },
     "contact.hours": { sr: "Radno vreme", en: "Opening hours" },
@@ -451,6 +459,9 @@ window.GC = {
       en: "If you offer one of these treatments and want to work from a salon, get in touch.",
     },
     "hiring.cta": { sr: "Pošalji poruku", en: "Send us a message" },
+    "footer.hiring": { sr: "Tražimo saradnice", en: "We're hiring" },
+    "cta.title": { sr: "Vidimo se u salonu?", en: "See you at the salon?" },
+    "cta.gift": { sr: "Poklanjaš nekome? Napravi poklon vaučer", en: "Buying for someone? Make a gift voucher" },
     "book.title": { sr: "Zakaži termin", en: "Book an appointment" },
     "book.body": {
       sr: "Izaberi kako ti je najlakše. Odgovaramo u toku dana.",
@@ -459,6 +470,10 @@ window.GC = {
     "book.online": { sr: "Zakaži online", en: "Book online" },
     "book.call": { sr: "Pozovi", en: "Call" },
     "book.close": { sr: "Zatvori", en: "Close" },
+    // Shown on computers and tablets, where a click on the number copies it.
+    "copy.phone": { sr: "Broj je kopiran: {n}", en: "Number copied: {n}" },
+    "copy.viber": { sr: "Broj je kopiran. Nalepi ga u Viber.", en: "Number copied. Paste it into Viber." },
+    "copy.failed": { sr: "Naš broj: {n}", en: "Our number: {n}" },
     "footer.rights": { sr: "Sva prava zadržana.", en: "All rights reserved." },
   },
 };

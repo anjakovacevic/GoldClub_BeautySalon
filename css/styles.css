@@ -1,12 +1,12 @@
 /* Gold Club
    Palette taken from the salon's own material: cream walls, business-card sand,
-   the blush of their posters, mocha brown instead of black, gold used as a metal. */
+   warm latte beige, mocha brown instead of black, gold used as a metal. */
 
 :root {
   --sateen: #F5ECE2;
   --sand: #E7D5BF;
-  --blush: #E4C3B8;
-  --blush-soft: #EFD9D0;
+  --latte: #E0CEB6;
+  --latte-soft: #EDE1D0;
   --gold: #B38B4D;
   --gold-deep: #7C5C29;
   --gold-light: #E8D09A;
@@ -234,23 +234,42 @@ figure { margin: 0; }
 
 .section-title { font-size: var(--step-3); }
 
-.services { padding-block: var(--section); border-top: 1px solid color-mix(in srgb, var(--gold) 35%, transparent); }
-.services .section-title { margin-bottom: clamp(2.5rem, 6vw, 4.5rem); }
-
-.service-list { display: grid; gap: clamp(4rem, 9vw, 7rem); }
-
-.service {
-  display: grid; grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
-  gap: clamp(2rem, 6vw, 6rem); align-items: center;
+/* Title on the left, a quiet link on the right. */
+.section-head {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+  gap: 1rem 2rem; margin-bottom: clamp(2.5rem, 6vw, 4rem);
 }
-.service-flip { grid-template-columns: minmax(0, 1fr) minmax(0, 20rem); }
-.service-flip .service-photo { order: 2; }
+.section-head .link { font-size: var(--step--1); }
+.section-head .link::after { content: " →"; }
 
-.service-photo .arch { aspect-ratio: 1 / 1.1; }
-#lash-brow .arch img { object-position: 30% center; }
+.services {
+  padding-block: var(--section);
+  background: color-mix(in srgb, var(--sand) 45%, var(--sateen));
+  border-top: 1px solid color-mix(in srgb, var(--gold) 35%, transparent);
+}
 
-.service-name { font-size: var(--step-3); }
+/* Home treatment cards. Built for any number of treatments: cards share a row
+   and wrap, with an odd one out centred under the rest. */
+.service-grid {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 3.5vw, 3rem);
+}
+.service-card {
+  flex: 1 1 15rem; max-width: 22rem;
+  display: flex; flex-direction: column;
+  text-decoration: none;
+}
+.service-card .arch { aspect-ratio: 1 / 1.2; }
+.service-card .arch img { transition: transform 1.2s cubic-bezier(.2, .7, .2, 1); }
+.service-card:hover .arch img { transform: scale(1.04); }
+
+.service-name { font-size: var(--step-2); margin-top: 1.5rem; }
 .service-intro { margin-top: 1.25rem; max-width: var(--measure); }
+.service-card .service-intro { margin: .75rem 0 1.5rem; color: var(--mocha-soft); font-size: var(--step--1); line-height: 1.65; }
+/* margin-top: auto pins the price line to the bottom, level across a row of cards. */
+.service-card .service-price { margin-top: auto; justify-content: space-between; font-size: 1.15rem; }
+.service-card .explore-more { padding-top: 0; font-family: var(--sans); }
+.service-card:hover .explore-more::after { transform: translateX(.3rem); }
 
 .points {
   list-style: none; padding: 0; margin: 1.5rem 0 0;
@@ -274,15 +293,25 @@ figure { margin: 0; }
 .service-price .link { font-family: var(--sans); font-size: var(--step--1); }
 
 @media (max-width: 760px) {
-  .service, .service-flip { grid-template-columns: 1fr; }
-  .service-flip .service-photo { order: 0; }
-  .service-photo { width: min(75%, 18rem); }
   .points { grid-template-columns: 1fr; }
+}
+
+/* Phones: one row that scrolls sideways, the next card peeking in at the edge. */
+@media (max-width: 640px) {
+  .service-grid {
+    flex-wrap: nowrap; justify-content: flex-start; gap: 1.25rem;
+    overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter);
+    margin-inline: calc(-1 * var(--gutter)); padding: 0 var(--gutter) .75rem;
+    scrollbar-width: none;
+  }
+  .service-grid::-webkit-scrollbar { display: none; }
+  .service-card { flex: 0 0 76%; scroll-snap-align: start; }
 }
 
 /* ---------- Price menu ---------- */
 
-.prices { background: var(--blush); padding-block: var(--section); }
+.prices { background: var(--latte); padding-block: var(--section); }
 
 .menu-card {
   background: var(--sateen);
@@ -310,19 +339,19 @@ figure { margin: 0; }
 
 .menu-note { margin-top: 3rem; font-size: var(--step--1); color: var(--mocha-soft); max-width: var(--measure); }
 
-/* ---------- Explore: links from the home page to the guide and price pages ---------- */
+/* ---------- Explore: link cards ("Ostali tretmani" on treatment pages) ---------- */
 
 .explore { padding-block: 0 var(--section); }
 .explore-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: clamp(1rem, 2.5vw, 2rem); }
 .explore-card {
   display: flex; flex-direction: column; gap: .6rem;
   padding: clamp(2rem, 4vw, 2.75rem);
-  background: var(--blush-soft);
+  background: var(--latte-soft);
   text-decoration: none;
   transition: background-color .25s;
 }
-.explore-card:nth-child(2) { background: color-mix(in srgb, var(--sand) 70%, var(--sateen)); }
-.explore-card:hover { background: var(--blush); }
+.explore-card:nth-child(even) { background: color-mix(in srgb, var(--sand) 70%, var(--sateen)); }
+.explore-card:hover { background: var(--latte); }
 .explore-card .eyebrow { margin-bottom: 0; }
 .explore-title { font-family: var(--serif); font-size: var(--step-2); line-height: 1.15; font-variation-settings: "opsz" 24; }
 .explore-text { max-width: var(--measure); color: var(--mocha-soft); }
@@ -333,7 +362,8 @@ figure { margin: 0; }
 .explore-more::after { content: "→"; display: inline-block; margin-left: .4em; transition: transform .25s; }
 
 /* Subpages start right under the header, so their first section needs less top space. */
-.page-prices > section:first-child { padding-top: clamp(2.5rem, 6vw, 4.5rem); border-top: 0; }
+.page-prices > section:first-child,
+.page-contact > section:first-child { padding-top: clamp(2.5rem, 6vw, 4.5rem); border-top: 0; }
 .explore-card:hover .explore-more::after { transform: translateX(.3rem); }
 
 /* ---------- Treatment pages ---------- */
@@ -388,7 +418,6 @@ figure { margin: 0; }
 }
 
 .others .section-title { margin-bottom: clamp(1.5rem, 4vw, 2.5rem); }
-.others .explore-card:nth-child(2) { background: color-mix(in srgb, var(--sand) 70%, var(--sateen)); }
 
 @media (max-width: 760px) {
   .treatment-inner { grid-template-columns: 1fr; }
@@ -401,6 +430,8 @@ figure { margin: 0; }
 .salon-inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 7vw, 7rem); align-items: center; }
 .salon-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: .25rem; }
 .salon-copy p { margin-top: 1.5rem; max-width: var(--measure); font-size: 1.125rem; line-height: 1.7; }
+.salon-link { display: inline-block; margin-top: 1.75rem; font-size: var(--step--1); }
+.salon-link::after { content: " →"; }
 
 @media (max-width: 760px) {
   .salon-inner { grid-template-columns: 1fr; }
@@ -491,6 +522,7 @@ figure { margin: 0; }
 .contact { background: var(--sand); padding-block: var(--section); }
 .contact-inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
 
+.contact-lede { margin-top: 1.25rem; max-width: var(--measure); color: var(--mocha-soft); }
 .contact-list { margin: 2.25rem 0 0; display: grid; gap: 1.25rem; }
 .contact-list > div { display: grid; grid-template-columns: 8.5rem 1fr; gap: 1rem; }
 .contact-list dt { color: var(--mocha-soft); font-size: var(--step--1); padding-top: .15em; }
@@ -512,14 +544,14 @@ figure { margin: 0; }
 .channel-primary:hover { background: var(--gold-deep); border-color: var(--gold-deep); }
 .channel svg { width: 1.1rem; height: 1.1rem; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linejoin: round; }
 
-.map { border-radius: 999px 999px 0 0; overflow: hidden; background: var(--blush-soft); aspect-ratio: 4 / 4.2; max-width: 100%; }
+.map { border-radius: 999px 999px 0 0; overflow: hidden; background: var(--latte-soft); aspect-ratio: 4 / 4.2; max-width: 100%; }
 .map-placeholder {
   height: 100%; display: grid; place-content: center; justify-items: center; gap: 1rem;
   padding: 2rem; text-align: center;
   background:
     repeating-linear-gradient(90deg, transparent 0 3.5rem, color-mix(in srgb, var(--gold) 16%, transparent) 3.5rem calc(3.5rem + 1px)),
     repeating-linear-gradient(0deg, transparent 0 3.5rem, color-mix(in srgb, var(--gold) 16%, transparent) 3.5rem calc(3.5rem + 1px)),
-    var(--blush-soft);
+    var(--latte-soft);
 }
 .map-address { font-family: var(--serif); font-size: var(--step-2); line-height: 1.15; }
 .map-address span { font-style: italic; font-size: var(--step-1); color: var(--mocha-soft); }
@@ -544,6 +576,32 @@ figure { margin: 0; }
 .hiring .link { color: var(--sand); text-decoration-color: var(--gold); }
 .hiring .link:hover { color: var(--sateen); text-decoration-color: var(--sateen); }
 
+/* ---------- Booking band: the home page's closing call to action ----------
+   A framed card with a foil hairline inside the edge, like the price menu, on latte beige. */
+
+.cta-band { background: var(--latte); padding-block: clamp(3.5rem, 8vw, 6rem); }
+.cta-inner {
+  position: relative; max-width: 50rem; margin-inline: auto;
+  --frame-inset: .75rem;
+  padding: clamp(3rem, 7vw, 4.5rem) clamp(1.75rem, 6vw, 4rem);
+  text-align: center;
+  background: color-mix(in srgb, var(--latte-soft) 70%, var(--latte));
+}
+.cta-title { font-size: var(--step-3); text-wrap: balance; }
+.cta-visit { margin-top: 1rem; color: var(--mocha-soft); font-size: var(--step--1); letter-spacing: .03em; text-wrap: balance; }
+.cta-actions {
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+  gap: 1rem 1.75rem; margin-top: 2rem;
+}
+.cta-phone { font-family: var(--serif); font-size: var(--step-1); text-decoration: none; font-variant-numeric: lining-nums; }
+.cta-phone:hover { color: var(--gold-deep); }
+.cta-gift {
+  margin: 2.25rem auto 0; padding-top: 1.25rem; max-width: 24rem;
+  border-top: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+  font-size: var(--step--1);
+}
+.cta-gift .link::after { content: " →"; }
+
 /* ---------- Footer ---------- */
 
 .site-footer { padding-block: clamp(3rem, 6vw, 4.5rem) 2rem; }
@@ -552,11 +610,59 @@ figure { margin: 0; }
 .footer-grid a { text-decoration: none; }
 .footer-grid a:hover { color: var(--gold-deep); }
 .footer-tag { margin-top: .75rem; font-family: var(--serif); font-style: italic; font-size: 1.05rem; color: var(--mocha-soft); max-width: 22ch; }
+.footer-hiring { margin-top: .2rem; }
 .footer-label { color: var(--gold-deep); letter-spacing: .2em; text-transform: uppercase; font-size: .72rem; margin-bottom: .6rem; font-weight: 400; }
 .footer-base { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid color-mix(in srgb, var(--gold) 35%, transparent); }
 .site-footer small { color: var(--mocha-soft); font-size: var(--step--1); }
-@media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } }
+/* Wide screens: a compact footer, with the tagline on one line and the copyright close under it. */
+@media (min-width: 901px) {
+  .site-footer {
+    padding-block: 2.25rem 1.25rem;
+    border-top: 1px solid color-mix(in srgb, var(--gold) 35%, transparent);
+    border-image: var(--foil-rule) 1;
+  }
+  .footer-hiring { margin-top: 0; }
+  .footer-grid { gap: 1.5rem 2rem; }
+  .footer-tag { margin-top: .4rem; max-width: none; font-size: 1rem; }
+  .footer-label { margin-bottom: .4rem; }
+  .footer-links { gap: 0; }
+  .footer-base { margin-top: 1.5rem; padding-top: .9rem; }
+}
+/* Footer icons: Instagram on phones and tablets (in place of the handle), plus a
+   call button on phones only. */
+.footer-icons { display: none; gap: .6rem; }
+.footer-icon {
+  display: grid; place-items: center;
+  width: 2.75rem; height: 2.75rem; border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--gold) 70%, transparent);
+  color: var(--gold-deep);
+  transition: background-color .2s, color .2s, border-color .2s;
+}
+.footer-icon:hover { background: var(--mocha); border-color: var(--mocha); color: var(--sateen); }
+.footer-icon svg { width: 1.3rem; height: 1.3rem; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linejoin: round; }
+.footer-call { display: none; }
+/* A phone: narrow and touch. Tablets and narrowed desktop windows don't qualify. */
+@media (max-width: 640px) and (pointer: coarse) {
+  .footer-call { display: grid; }
+}
+
+/* Phones and tablets: just the name, the address and the Instagram logo. */
+@media (max-width: 900px) {
+  .site-footer { padding-block: 2rem 1.25rem; }
+  .footer-grid {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "brand follow" "visit follow";
+    align-items: center; gap: .35rem 1rem;
+  }
+  .footer-brand { grid-area: brand; }
+  .footer-visit { grid-area: visit; }
+  .footer-follow { grid-area: follow; }
+  .footer-tag, .footer-treatments, .footer-label,
+  .footer-visit br, .footer-phone,
+  .footer-handle, .footer-hiring { display: none; }
+  .footer-icons { display: flex; }
+  .footer-base { margin-top: 1.25rem; padding-top: .9rem; }
+}
 
 /* ---------- Booking dialog ---------- */
 
@@ -584,6 +690,23 @@ figure { margin: 0; }
 @media (prefers-reduced-motion: no-preference) {
   .booking[open] .booking-inner { animation: rise .45s cubic-bezier(.2, .7, .2, 1); }
 }
+
+/* ---------- Toast: "Broj je kopiran" ---------- */
+
+.toast {
+  position: fixed; inset: auto auto 1.5rem 50%; z-index: 50;
+  margin: 0; transform: translate(-50%, .5rem);
+  max-width: calc(100% - 2rem); width: max-content;
+  padding: .8rem 1.4rem;
+  border: 1px solid var(--gold); border-radius: 999px;
+  background: var(--mocha); color: var(--sateen);
+  font: 400 var(--step--1)/1.4 var(--sans); letter-spacing: .02em; text-align: center;
+  box-shadow: 0 1rem 2rem -1rem rgb(59 40 29 / .6);
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s, transform .3s cubic-bezier(.2, .7, .2, 1);
+}
+.toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+@media (prefers-reduced-motion: reduce) { .toast { transition: opacity .2s; transform: translate(-50%, 0); } }
 
 /* ---------- Shared form bits ---------- */
 
@@ -704,7 +827,7 @@ legend, .field label {
 .step-date { font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-deep); }
 .step-text { font-size: var(--step--1); }
 .timeline li.is-event .step-text { font-family: var(--serif); font-style: italic; font-size: 1.1rem; }
-.plan-hint { margin-top: 1.25rem; padding: .9rem 1.1rem; background: var(--blush-soft); font-size: var(--step--1); }
+.plan-hint { margin-top: 1.25rem; padding: .9rem 1.1rem; background: var(--latte-soft); font-size: var(--step--1); }
 
 @media (max-width: 1000px) {
   .planner-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 15rem); }
@@ -717,7 +840,7 @@ legend, .field label {
 
 /* ---------- Gift voucher ---------- */
 
-.voucher { background: var(--blush); padding-block: var(--section); }
+.voucher { background: var(--latte); padding-block: var(--section); }
 .voucher-inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(2.5rem, 6vw, 5.5rem); align-items: center; }
 .voucher-lede { margin-top: 1rem; max-width: var(--measure); }
 .voucher-form { display: grid; gap: 1.5rem; margin-top: 2.25rem; }
@@ -820,7 +943,7 @@ legend, .field label {
    along it on hover. */
 .menu-card, .explore-card, .review, .voucher-card, .booking-inner { position: relative; }
 .menu-card::before, .explore-card::before, .review::before, .voucher-card::before, .booking-inner::before,
-.arch-outline {
+.cta-inner::before, .arch-outline {
   content: ""; position: absolute; inset: var(--frame-inset, .6rem);
   padding: 1px; border: 0; border-radius: inherit; pointer-events: none;
   background: var(--foil) 0 0 / 300% 100%;
@@ -831,12 +954,12 @@ legend, .field label {
 .menu-card { --frame-inset: .75rem; }
 .arch-outline { inset: -1rem 1rem 1rem -1rem; border-radius: 999px 999px 0 0; background-size: 200% 100%; }
 .explore-card:hover::before, .review:hover::before, .voucher-card:hover::before,
-.hero-arch:hover .arch-outline { background-position: 100% 0; }
+.cta-inner:hover::before, .hero-arch:hover .arch-outline { background-position: 100% 0; }
 
 /* Hairlines catch the light in the middle and fade at the ends. */
 .site-header, .services, .reviews, .planner, .footer-base { border-image: var(--foil-rule) 1; }
 @media (max-width: 1000px) { .site-nav { border-image: var(--foil-rule) 1; } }
-.service-price, .menu-group h3, .review footer { border-image: var(--foil-rule-start) 1; }
+.service-price, .menu-group h3, .review footer, .cta-gift { border-image: var(--foil-rule-start) 1; }
 
 /* Buttons turn to gold on hover, with the light passing over them. */
 .btn, .channel-primary { position: relative; isolation: isolate; overflow: hidden; }
@@ -876,5 +999,6 @@ legend, .field label {
 
 @media (prefers-reduced-motion: reduce) {
   .brand, .btn::before, .channel-primary::before, .voucher-card::after,
-  .menu-card::before, .explore-card::before, .review::before, .voucher-card::before, .arch-outline { transition: none; }
+  .menu-card::before, .explore-card::before, .review::before, .voucher-card::before, .cta-inner::before, .arch-outline,
+  .service-card .arch img { transition: none; }
 }

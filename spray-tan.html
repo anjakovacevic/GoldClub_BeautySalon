@@ -89,10 +89,9 @@
 
       <nav id="site-nav" class="site-nav">
         <ul>
-          <li><a href="index.html#usluge" data-i18n="nav.services">Usluge</a></li>
-          <li><a href="spray-tan.html" aria-current="page" data-i18n="nav.planner">Spray tan vodič</a></li>
+          <li><a href="index.html#usluge" data-i18n="nav.services">Tretmani</a></li>
           <li><a href="cenovnik.html" data-i18n="nav.prices">Cenovnik</a></li>
-          <li><a href="index.html#lokacija" data-i18n="nav.contact">Lokacija</a></li>
+          <li><a href="kontakt.html" data-i18n="nav.contact">Lokacija</a></li>
         </ul>
         <div class="lang" role="group" aria-label="Jezik / Language">
           <button type="button" data-lang="sr" aria-pressed="true">SR</button>
@@ -113,7 +112,7 @@
           <div class="service-detail" data-render="service-detail" data-service="spray-tan"><p class="service-intro">Preplanuli ten već posle jednog tretmana, za svečani i za svakodnevni autfit. Boju biramo zajedno, prema tvom tenu.</p><ul class="points"><li>Bez rizika za kožu</li><li>Boja koja odgovara tebi</li><li>Najkvalitetnije formule</li><li>Jednostavno održavanje boje</li></ul><h2 class="treatment-subtitle">Cene</h2><ul class="menu-items"><li><span class="item-name">Basic</span><span class="item-leader" aria-hidden="true"></span><span class="item-price">1.900 RSD</span></li><li><span class="item-name">Classic</span><span class="item-leader" aria-hidden="true"></span><span class="item-price">2.400 RSD</span></li><li><span class="item-name">Premium</span><span class="item-leader" aria-hidden="true"></span><span class="item-price">2.900 RSD</span></li><li><span class="item-name">Spray tan po izboru + dolazak na adresu</span><span class="item-leader" aria-hidden="true"></span><span class="item-price">5.400 RSD</span></li></ul></div>
           <div class="hero-actions">
             <button type="button" class="btn" data-open-booking data-i18n="book">Zakaži termin</button>
-            <a class="link" href="#planer" data-i18n="explore.guide.title">Isplaniraj svoj ten</a>
+            <a class="link" href="#planer" data-i18n="planner.title">Isplaniraj svoj ten</a>
           </div>
         </div>
         <figure class="hero-arch">
@@ -186,7 +185,7 @@
     <section class="faq" id="pitanja" aria-labelledby="faq-title">
       <div class="wrap faq-inner">
         <h2 id="faq-title" class="section-title" data-i18n="faq.title">Česta pitanja</h2>
-        <div class="faq-list" data-render="faq" data-service="spray-tan"><details><summary>Koliko traje spray tan?</summary><p>Obično 7 do 10 dana. Najduže traje ako svaki dan hidriraš kožu i izbegavaš piling i duge tople kupke.</p></details><details><summary>Da li će mi ten biti narandžast?</summary><p>Ne. Nijansu biramo prema tvom tenu i podtonu, a koristimo formule koje daju prirodnu, bronzanu boju.</p></details><details><summary>Kako da se pripremim?</summary><p>Dan ranije uradi piling i brijanje ili depilaciju. Na tretman dođi bez kreme, dezodoransa i šminke, u širokoj tamnoj odeći.</p></details><details><summary>Kada smem da se istuširam?</summary><p>Prvo tuširanje posle otprilike 8 sati, mlakom vodom i bez gela. Tačno vreme zavisi od formule, pa ti to kažemo na tretmanu.</p></details><details><summary>Dolazite li na adresu?</summary><p>Da, za spray tan. Idealno za pripreme pred venčanje ili devojačko veče, kada se sređuje više devojaka.</p></details><details><summary>Da li tražite saradnice?</summary><p>Da. Ako se baviš manikirom, šminkom, trepavicama, depilacijom ili trajnom šminkom i želiš da radiš u salonu, javi nam se. <a class="link" href="index.html#saradnja">Tražimo saradnice →</a></p></details></div>
+        <div class="faq-list" data-render="faq" data-service="spray-tan"><details><summary>Koliko traje spray tan?</summary><p>Obično 7 do 10 dana. Najduže traje ako svaki dan hidriraš kožu i izbegavaš piling i duge tople kupke.</p></details><details><summary>Da li će mi ten biti narandžast?</summary><p>Ne. Nijansu biramo prema tvom tenu i podtonu, a koristimo formule koje daju prirodnu, bronzanu boju.</p></details><details><summary>Kako da se pripremim?</summary><p>Dan ranije uradi piling i brijanje ili depilaciju. Na tretman dođi bez kreme, dezodoransa i šminke, u širokoj tamnoj odeći.</p></details><details><summary>Kada smem da se istuširam?</summary><p>Prvo tuširanje posle otprilike 8 sati, mlakom vodom i bez gela. Tačno vreme zavisi od formule, pa ti to kažemo na tretmanu.</p></details><details><summary>Dolazite li na adresu?</summary><p>Da, za spray tan. Idealno za pripreme pred venčanje ili devojačko veče, kada se sređuje više devojaka.</p></details><details><summary>Da li tražite saradnice?</summary><p>Da. Ako se baviš manikirom, šminkom, trepavicama, depilacijom ili trajnom šminkom i želiš da radiš u salonu, javi nam se. <a class="link" href="kontakt.html#saradnja">Tražimo saradnice →</a></p></details></div>
       </div>
     </section>
 
@@ -200,21 +199,30 @@
 
   <footer class="site-footer">
     <div class="wrap footer-grid">
-      <div>
+      <div class="footer-brand">
         <span class="brand">Gold Club</span>
         <p class="footer-tag">The place where hot girls get even hotter.</p>
       </div>
-      <div>
+      <div class="footer-treatments">
         <p class="footer-label" data-i18n="footer.treatments">Tretmani</p>
         <ul class="footer-links" data-render="service-links"><li><a href="spray-tan.html">Spray tan</a></li><li><a href="lash-brow-lift.html">Lash &amp; brow lift</a></li><li><a href="masaza.html">Masaža</a></li></ul>
       </div>
-      <div>
+      <div class="footer-visit">
         <p class="footer-label" data-i18n="footer.visit">Adresa</p>
-        <p>Trgovačka 7a, Banovo brdo<br><a href="tel:+38162596994">+381 62 596 994</a></p>
+        <p><a href="kontakt.html">Trgovačka 7a, Banovo brdo</a><br><a class="footer-phone" href="tel:+38162596994">+381 62 596 994</a></p>
       </div>
-      <div>
+      <div class="footer-follow">
         <p class="footer-label" data-i18n="footer.follow">Prati nas</p>
-        <p><a href="https://www.instagram.com/salongoldclub" target="_blank" rel="noopener">@salongoldclub</a></p>
+        <p class="footer-handle"><a href="https://www.instagram.com/salongoldclub" target="_blank" rel="noopener">@salongoldclub</a></p>
+        <div class="footer-icons">
+          <a class="footer-icon footer-call" href="tel:+38162596994" data-i18n-label="book.call" aria-label="Pozovi">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h2.6l1.4 4-2 1.3a11 11 0 0 0 6.6 6.6l1.3-2 4 1.4v2.6a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z"/></svg>
+          </a>
+          <a class="footer-icon" href="https://www.instagram.com/salongoldclub" target="_blank" rel="noopener" aria-label="Instagram: @salongoldclub">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".9"/></svg>
+          </a>
+        </div>
+        <p class="footer-hiring" data-render="hiring"><a href="kontakt.html#saradnja" data-i18n="footer.hiring">Tražimo saradnice</a></p>
       </div>
     </div>
     <div class="wrap footer-base">

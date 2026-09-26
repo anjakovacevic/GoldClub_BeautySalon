@@ -20,4 +20,8 @@
     <loc>https://vanjakovacevic1.github.io/GoldClub_BeautySalon/cenovnik.html</loc>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://vanjakovacevic1.github.io/GoldClub_BeautySalon/kontakt.html</loc>
+    <priority>0.7</priority>
+  </url>
 </urlset>
